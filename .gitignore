@@ -2,6 +2,9 @@
 *.py[co]
 *.egg*
 
+# Node things
+node_modules
+
 # SQLite3 things
 *.db
 
