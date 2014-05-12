@@ -1,0 +1,13 @@
+# Python things
+*.py[co]
+*.egg*
+
+# SQLite3 things
+*.db
+
+# Logs
+*.log
+
+# OSX Things
+.DS_Store
+._*

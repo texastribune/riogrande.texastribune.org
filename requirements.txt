@@ -1,0 +1,2 @@
+# Many hosting services look for a requirements.txt in root. So you need it.
+-r requirements/production.txt

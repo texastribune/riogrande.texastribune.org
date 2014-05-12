@@ -1,0 +1,5 @@
+# Local requirements for development work. Typically iPython, etc.
+
+-r base.txt
+
+django-debug-toolbar==1.2
