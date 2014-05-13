@@ -16,4 +16,4 @@ node_modules
 ._*
 
 # CSS things
-riogrande/static/css/*.css
+riogrande/static/css/*.css*
