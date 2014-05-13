@@ -14,3 +14,6 @@ node_modules
 # OSX Things
 .DS_Store
 ._*
+
+# CSS things
+riogrande/static/css/*.css
