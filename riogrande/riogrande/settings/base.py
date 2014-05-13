@@ -67,12 +67,13 @@ MEDIA_URL = '/media/'
 
 # Static files
 
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-)
+# STATICFILES_DIRS = (
+#     os.path.join(BASE_DIR, 'static'),
+# )
 
 STATIC_URL = '/static/'
 
 # Secret configuration
 # Note: Only use for development and testing!
+
 SECRET_KEY = 'this_is_my_development_key'

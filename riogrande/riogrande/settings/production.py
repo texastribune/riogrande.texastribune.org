@@ -16,13 +16,17 @@ def get_env_setting(setting):
 
 
 # Host configuration
+
 ALLOWED_HOSTS = []
 
 # Database
+
 DATABASES = {}
 
 # Cache
+
 CACHES = {}
 
 # Secret configuration
+
 SECRET_KEY = get_env_setting('SECRET_KEY')

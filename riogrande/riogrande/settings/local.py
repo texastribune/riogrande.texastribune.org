@@ -10,6 +10,7 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 # Database
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -22,6 +23,7 @@ DATABASES = {
 }
 
 # Cache
+
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
@@ -29,6 +31,7 @@ CACHES = {
 }
 
 # Django debug toolbar
+
 INSTALLED_APPS += (
     'debug_toolbar.apps.DebugToolbarConfig',
 )
