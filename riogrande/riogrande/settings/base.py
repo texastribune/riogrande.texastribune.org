@@ -16,9 +16,14 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
+    'django.contrib.gis',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # apps
+    'pings',
+
 )
 
 MIDDLEWARE_CLASSES = (
@@ -77,3 +82,10 @@ STATIC_URL = '/static/'
 # Note: Only use for development and testing!
 
 SECRET_KEY = 'this_is_my_development_key'
+
+# South configuration
+
+INSTALLED_APPS += (
+    # Database migration helpers:
+    'south',
+)

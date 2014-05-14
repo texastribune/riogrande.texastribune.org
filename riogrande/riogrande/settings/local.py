@@ -13,7 +13,7 @@ TEMPLATE_DEBUG = DEBUG
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
+        'ENGINE': 'django.contrib.gis.db.backends.spatialite',
         'NAME': os.path.join(BASE_DIR, 'local.db'),
         'USER': '',
         'PASSWORD': '',
@@ -33,5 +33,5 @@ CACHES = {
 # Django debug toolbar
 
 INSTALLED_APPS += (
-    'debug_toolbar.apps.DebugToolbarConfig',
+    'debug_toolbar',
 )
