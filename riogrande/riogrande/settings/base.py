@@ -24,6 +24,7 @@ INSTALLED_APPS = (
     # apps
     'measurements',
     'pings',
+    'posts',
 
 )
 
