@@ -17,3 +17,6 @@ node_modules
 
 # CSS things
 riogrande/static/css/*.css*
+
+# Django things
+riogrande/assets/
