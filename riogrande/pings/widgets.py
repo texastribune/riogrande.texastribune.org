@@ -1,4 +1,5 @@
 from django.forms import widgets
+from django.contrib.gis.geos import Point
 
 
 class LatLonWidget(widgets.MultiWidget):
@@ -21,3 +22,14 @@ class LatLonWidget(widgets.MultiWidget):
                 'Longitude: {1}</p>').format(
                     rendered_widgets[0],
                     rendered_widgets[1])
+
+    def value_from_datadict(self, data, files, name):
+        try:
+            p = Point(
+                float(data['location_1']),
+                float(data['location_0']),
+            )
+        except ValueError:
+            return ''
+        else:
+            return p

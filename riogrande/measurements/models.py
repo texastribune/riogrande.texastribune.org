@@ -36,5 +36,7 @@ class Measurement(models.Model):
     water_temperature = models.FloatField(null=True, blank=True,
                                           help_text=u'in degrees Celsius')
 
+    objects = models.GeoManager()
+
     def __unicode__(self):
         return localtime(self.pub_date).strftime('%B %d, %Y at %I:%M %p')

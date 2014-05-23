@@ -1,6 +1,8 @@
 from django.contrib import admin
+from django.contrib.gis.db import models
 
-from . import models
+from .models import Measurement
+from pings.widgets import LatLonWidget
 
 
 class MeasurementAdmin(admin.ModelAdmin):
@@ -26,5 +28,9 @@ class MeasurementAdmin(admin.ModelAdmin):
         })
     ]
 
+    formfield_overrides = {
+        models.PointField: {'widget': LatLonWidget}
+    }
 
-admin.site.register(models.Measurement, MeasurementAdmin)
+
+admin.site.register(Measurement, MeasurementAdmin)

@@ -1,6 +1,5 @@
 from django.contrib import admin
 from django.contrib.gis.db import models
-from django.forms import widgets
 
 from .models import Ping
 from .widgets import LatLonWidget
