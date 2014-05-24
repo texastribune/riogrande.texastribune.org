@@ -1,2 +1,4 @@
+django-sortedm2m==0.7.0
 Django==1.6.4
+Pillow==2.4.0
 South==0.8.4
