@@ -36,6 +36,7 @@ class Gallery(models.Model):
     is_public = models.BooleanField(default=True)
 
     photos = SortedManyToManyField(
+        Photo,
         related_name='galleries',
         verbose_name='photos',
         null=True,
