@@ -21,8 +21,12 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # helpers
+    'sortedm2m',
+
     # apps
     'measurements',
+    'photos',
     'pings',
     'posts',
 
@@ -71,6 +75,8 @@ SITE_ID = 1
 # Media files
 
 MEDIA_URL = '/media/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Static files
 
