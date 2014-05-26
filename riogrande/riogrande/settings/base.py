@@ -4,7 +4,8 @@ import os
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+DJANGO_ROOT = os.path.dirname(os.path.dirname(__file__))
+SITE_ROOT = os.path.dirname(DJANGO_ROOT)
 
 DEBUG = False
 
@@ -76,12 +77,12 @@ SITE_ID = 1
 
 MEDIA_URL = '/media/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(SITE_ROOT, 'media')
 
 # Static files
 
 # STATICFILES_DIRS = (
-#     os.path.join(BASE_DIR, 'static'),
+#     os.path.join(SITE_ROOT, 'static'),
 # )
 
 STATIC_URL = '/static/'
