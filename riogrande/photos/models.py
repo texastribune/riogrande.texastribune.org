@@ -13,6 +13,7 @@ class Photo(models.Model):
     title = models.CharField(max_length=50)
     slug = models.SlugField(unique=True, max_length=50)
     caption = models.TextField(blank=True)
+    credit = models.CharField('photographer', max_length=50, blank=True)
     date_added = models.DateTimeField(default=now)
     is_public = models.BooleanField(default=True)
 
