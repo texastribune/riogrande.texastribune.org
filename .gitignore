@@ -19,5 +19,5 @@ node_modules
 riogrande/static/css/*.css*
 
 # Django things
-riogrande/riogrande/media/
+riogrande/media/
 riogrande/assets/
