@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block data_script %}
+
+var pings = {
+  {% for ping in pings %}
+  'hi': 'wutup',
+  {% endfor %}
+};
+
+{% endblock %}
+
+{% block content %}
+
+{% if measurement %}
+  <div class="content-block">
+    <ul>
+      <li>{{ measurement.air_temperature }}</li>
+      <li>{{ measurement.conductivity }}</li>
+      <li>{{ measurement.depth }}</li>
+      <li>{{ measurement.dissolved_oxygen }}</li>
+      <li>{{ measurement.e_coli }}</li>
+      <li>{{ measurement.ph_level }}</li>
+      <li>{{ measurement.secchi_disk_transparency }}</li>
+      <li>{{ measurement.water_temperature }}</li>
+    </ul>
+  </div>
+
+  <hr>
+{% endif %}
+
+{% if post %}
+  <div class="content-block">
+    <div class="content-header">
+      <header>
+        <h2>{{ post.headline }}</h2>
+        <p>{{ post.pub_date|date }}</p>
+      </header>
+    </div>
+  </div>
+  <div class="content-block">
+    <div class="content-prose">
+      {{ post.text|safe }}
+    </div>
+  </div>
+
+  <hr>
+{% endif %}
+
+{% if gallery %}
+    {% for photo in gallery.photos.all %}
+    <div class="content-block">
+      <div class="content-photo">
+        <img src="{{ photo.image.url }}">
+        {% if photo.caption %}
+        <div class="content-photo-caption">
+          <span>{{ photo.caption|safe }}</span>
+          {% if photo.credit %}
+          <span class="content-photo-credit">{{ photo.credit }}</span>
+          {% endif %}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
+
+    <hr>
+{% endif %}
+
+{% endblock %}
