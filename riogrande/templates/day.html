@@ -1,29 +1,71 @@
 {% extends "base.html" %}
+{% load geojson_tags %}
 
 {% block data_script %}
 
-var pings = {
-  {% for ping in pings %}
-  'hi': 'wutup',
-  {% endfor %}
-};
+{% if pings %}
+var pings = {{ pings|geojsonfeature:"location"|safe }};
+{% else %}
+var pings = {};
+{% endif %}
 
 {% endblock %}
 
 {% block content %}
 
+{% if pings %}
+
+<div class="map" id="map"></div>
+
+<hr>
+
+{% endif %}
+
 {% if measurement %}
   <div class="content-block">
-    <ul>
-      <li>{{ measurement.air_temperature }}</li>
-      <li>{{ measurement.conductivity }}</li>
-      <li>{{ measurement.depth }}</li>
-      <li>{{ measurement.dissolved_oxygen }}</li>
-      <li>{{ measurement.e_coli }}</li>
-      <li>{{ measurement.ph_level }}</li>
-      <li>{{ measurement.secchi_disk_transparency }}</li>
-      <li>{{ measurement.water_temperature }}</li>
-    </ul>
+    <div class="content-header">
+      <header>
+        <h2>Measurements</h2>
+      </header>
+    </div>
+  </div>
+  <div class="content-block">
+    <div class="content-measurements">
+      <dl>
+        <div class="measurement">
+          <dt>Air temperature</dt>
+          <dd>{{ measurement.air_temperature }}</dd>
+        </div>
+        <div class="measurement">
+          <dt>Conductivity</dt>
+          <dd>{{ measurement.conductivity }}</dd>
+        </div>
+        <div class="measurement">
+          <dt>Depth</dt>
+          <dd>{{ measurement.depth }}</dd>
+        </div>
+        <div class="measurement">
+          <dt>Dissolved oxygen</dt>
+          <dd>{{ measurement.dissolved_oxygen }}</dd>
+        </div>
+        <div class="measurement">
+          <dt>E. coli</dt>
+          <dd>{{ measurement.e_coli }}</dd>
+        </div>
+        <div class="measurement">
+          <dt>pH level</dt>
+          <dd>{{ measurement.ph_level }}</dd>
+        </div>
+        <div class="measurement">
+          <dt>Secchi disk transparency</dt>
+          <dd>{{ measurement.secchi_disk_transparency }}</dd>
+        </div>
+        <div class="measurement">
+          <dt>Water temperature</dt>
+          <dd>{{ measurement.water_temperature }}</dd>
+        </div>
+      </dl>
+    </div>
   </div>
 
   <hr>
@@ -67,4 +109,31 @@ var pings = {
     <hr>
 {% endif %}
 
+{% endblock %}
+
+{% block extra_style %}
+<link href='//api.tiles.mapbox.com/mapbox.js/v1.6.3/mapbox.css' rel='stylesheet' />
+{% endblock %}
+
+{% block extra_script %}
+<script src='//api.tiles.mapbox.com/mapbox.js/v1.6.3/mapbox.js'></script>
+<script>
+
+var map_id = 'texastribune.ibpc7iio';
+
+if(pings) {
+  var map = L.mapbox.map('map', map_id, {
+    tileLayer: {
+      detectRetina: true
+    }
+  });
+
+  map.scrollWheelZoom.disable();
+
+  var data_layer = L.geoJson(pings).addTo(map);
+
+  map.fitBounds(data_layer.getBounds(), {maxZoom: 8});
+}
+
+</script>
 {% endblock %}
