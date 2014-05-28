@@ -22,13 +22,25 @@ class DayView(TemplateView):
             int(context['month']),
             int(context['day']))
 
-        context['post'] = Post.objects.get(
-            pub_date__contains=page_date)
         context['pings'] = Ping.objects.filter(
             pub_date__contains=page_date)
-        print context['pings']
-        context['gallery'] = Gallery.objects.get(
-            date_added__contains=page_date)
-        context['measurement'] = Measurement.objects.get(
-            pub_date__contains=page_date)
+
+        try:
+            context['post'] = Post.objects.get(
+                pub_date__contains=page_date)
+        except Post.DoesNotExist:
+            pass
+
+        try:
+            context['gallery'] = Gallery.objects.get(
+                date_added__contains=page_date)
+        except Gallery.DoesNotExist:
+            pass
+
+        try:
+            context['measurement'] = Measurement.objects.get(
+                pub_date__contains=page_date)
+        except Measurement.DoesNotExist:
+            pass
+
         return context
