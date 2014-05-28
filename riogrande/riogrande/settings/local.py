@@ -14,7 +14,7 @@ TEMPLATE_DEBUG = DEBUG
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.spatialite',
-        'NAME': os.path.join(BASE_DIR, 'local.db'),
+        'NAME': os.path.join(SITE_ROOT, 'local.db'),
         'USER': '',
         'PASSWORD': '',
         'HOST': '',

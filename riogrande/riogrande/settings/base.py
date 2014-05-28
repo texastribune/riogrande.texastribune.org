@@ -4,7 +4,8 @@ import os
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+DJANGO_ROOT = os.path.dirname(os.path.dirname(__file__))
+SITE_ROOT = os.path.dirname(DJANGO_ROOT)
 
 DEBUG = False
 
@@ -22,6 +23,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     # helpers
+    'djgeojson',
     'sortedm2m',
 
     # apps
@@ -72,17 +74,23 @@ USE_TZ = True
 
 SITE_ID = 1
 
+# Templates
+
+TEMPLATE_DIRS = (
+    os.path.join(SITE_ROOT, 'templates'),
+)
+
 # Media files
 
 MEDIA_URL = '/media/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(SITE_ROOT, 'media')
 
 # Static files
 
-# STATICFILES_DIRS = (
-#     os.path.join(BASE_DIR, 'static'),
-# )
+STATICFILES_DIRS = (
+    os.path.join(SITE_ROOT, 'static'),
+)
 
 STATIC_URL = '/static/'
 

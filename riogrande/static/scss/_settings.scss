@@ -1,0 +1,28 @@
+// breakpoints
+$desktop: new-breakpoint(min-width 768px 12);
+$mobile: new-breakpoint(max-width 480px);
+
+// fonts
+$boldHeaderFont: $helvetica;
+$subHeaderFont: "apertura", $helvetica;
+$textFont: "jaf-facitweb", $helvetica;
+
+// colors
+$offblack: rgb(34, 34, 34);
+$offwhite: rgb(238, 238, 238);
+$creditGray: rgb(136, 136, 136);
+$captionGray: rgb(102, 102, 102);
+
+$mainColor: rgb(217, 153, 40);
+$accentColor: rgb(239, 209, 160);
+
+@mixin visually-hidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
