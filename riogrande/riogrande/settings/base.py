@@ -23,6 +23,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     # helpers
+    'djgeojson',
     'sortedm2m',
 
     # apps
