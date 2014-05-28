@@ -23,9 +23,37 @@ hr {
   margin-bottom: 1em;
 }
 
+.map {
+  width: 100%;
+  height: 250px;
+}
+
 .content-block {
   width: 80%;
   margin: 0 auto;
+
+  .content-measurements {
+    font-family: $textFont;
+    font-size: .875em;
+    @include row();
+
+    .measurement {
+      margin-bottom: 0.5em;
+      text-align: center;
+      @include span-columns(6 of 12);
+      @include omega(2n);
+
+      dt, dd {
+        margin: 0;
+        padding: 0;
+      }
+
+      dt {
+        font-weight: 600;
+        margin-bottom: .25em;
+      }
+    }
+  }
 
   .content-header {
     header {
