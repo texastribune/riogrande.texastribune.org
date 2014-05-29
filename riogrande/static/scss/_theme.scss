@@ -32,6 +32,17 @@ hr {
   width: 80%;
   margin: 0 auto;
 
+  .content-day-header {
+    header {
+      font-family: $subHeaderFont;
+      color: $captionGray;
+
+      h2 {
+        font-size: 1.75em;
+      }
+    }
+  }
+
   .content-measurements {
     font-family: $textFont;
     font-size: .875em;
@@ -60,7 +71,8 @@ hr {
       font-family: $subHeaderFont;
       font-size: 1em;
 
-      h2 {
+      h3 {
+        font-size: 1.5em;
         font-weight: 500;
         margin: 0 0 0.5em 0;
         padding: 0;
@@ -106,15 +118,14 @@ hr {
 }
 
 .header {
-  height: 2.75em + em(4, 16);
-  line-height: 2.75em + em(4, 16);
+  height: 3em;
+  line-height: 3em;
   margin-bottom: 1em;
   background-color: rgb(34, 34, 34);
   text-align: center;
-  border-bottom: 4px solid $mainColor;
 
   img {
-    height: 1.5em;
+    height: 1.375em;
     vertical-align: middle;
   }
 }
@@ -126,6 +137,7 @@ hr {
     margin: 0 auto;
 
     h1 {
+      font-size: 2em;
       font-weight: 500;
       line-height: 1;
     }
