@@ -76,12 +76,22 @@ var pings = {};
     <div class="content-header">
       <header>
         <h2>{{ post.headline }}</h2>
-        <p>{{ post.pub_date|date }}</p>
       </header>
     </div>
   </div>
   <div class="content-block">
     <div class="content-prose">
+      <div class="content-photo">
+        <img src="{{ post.lede_art.image.url }}">
+        {% if post.lede_art.caption %}
+        <div class="content-photo-caption">
+          <span>{{ post.lede_art.caption|safe }}</span>
+          {% if post.lede_art.credit %}
+          <span class="content-photo-credit">{{ post.lede_art.credit }}</span>
+          {% endif %}
+        </div>
+        {% endif %}
+      </div>
       {{ post.text|safe }}
     </div>
   </div>
