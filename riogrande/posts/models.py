@@ -1,5 +1,7 @@
 from django.db import models
 
+from photos.models import Photo
+
 
 class Post(models.Model):
 
@@ -10,6 +12,7 @@ class Post(models.Model):
 
     # content fields
     text = models.TextField()
+    lede_art = models.ForeignKey(Photo)
 
     objects = models.Manager()
 
