@@ -22,6 +22,8 @@ class DayView(TemplateView):
             int(context['month']),
             int(context['day']))
 
+        context['page_date'] = page_date
+
         context['pings'] = Ping.objects.filter(
             pub_date__contains=page_date)
 
