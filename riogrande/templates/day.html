@@ -13,6 +13,14 @@ var pings = {};
 
 {% block content %}
 
+<div class="content-block">
+  <div class="content-day-header">
+    <header>
+      <h2>{{ page_date|date }}</h2>
+    </header>
+  </div>
+</div>
+
 {% if pings %}
 
 <div class="map" id="map"></div>
@@ -25,7 +33,7 @@ var pings = {};
   <div class="content-block">
     <div class="content-header">
       <header>
-        <h2>Measurements</h2>
+        <h3>Measurements</h3>
       </header>
     </div>
   </div>
@@ -75,7 +83,7 @@ var pings = {};
   <div class="content-block">
     <div class="content-header">
       <header>
-        <h2>{{ post.headline }}</h2>
+        <h3>{{ post.headline }}</h3>
       </header>
     </div>
   </div>
