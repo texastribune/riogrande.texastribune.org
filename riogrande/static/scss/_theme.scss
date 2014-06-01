@@ -92,6 +92,14 @@ hr {
       font-weight: 400;
       line-height: 1.45;
     }
+
+    blockquote {
+      border-left: 2px solid $mainColor;
+      font-size: .875em;
+      font-style: italic;
+      margin: 0 0 0 1em;
+      padding: 0 0 0 1em;
+    }
   }
 
   .content-photo {
