@@ -95,7 +95,7 @@ STATICFILES_DIRS = (
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = os.path.join(SITE_ROOT, 'assets')
+STATIC_ROOT = 'staticfiles'
 
 # WhiteNoise configuration
 
