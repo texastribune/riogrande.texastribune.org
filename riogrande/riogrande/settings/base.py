@@ -25,6 +25,7 @@ INSTALLED_APPS = (
     # helpers
     'djgeojson',
     'sortedm2m',
+    'storages',
 
     # apps
     'measurements',
@@ -93,6 +94,12 @@ STATICFILES_DIRS = (
 )
 
 STATIC_URL = '/static/'
+
+STATIC_ROOT = os.path.join(SITE_ROOT, 'assets')
+
+# WhiteNoise configuration
+
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 # Secret configuration
 # Note: Only use for development and testing!
