@@ -1,6 +1,7 @@
 Django==1.6.4
 django-geojson==2.4.0
 django-sortedm2m==0.7.0
+django-storages==1.1.8
 Pillow==2.4.0
 South==0.8.4
 whitenoise==1.0.2
