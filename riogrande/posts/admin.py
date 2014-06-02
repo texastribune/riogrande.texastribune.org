@@ -14,6 +14,8 @@ class PostAdmin(admin.ModelAdmin):
         }
     }
 
+    prepopulated_fields = {'slug': ('headline',)}
+
     class Media:
         js = ('ckeditor/ckeditor.js', )
 
