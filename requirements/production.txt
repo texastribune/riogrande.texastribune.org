@@ -3,4 +3,5 @@
 
 -r base.txt
 
+boto==2.29.1
 raven>=3
