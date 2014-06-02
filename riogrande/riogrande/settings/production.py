@@ -17,16 +17,20 @@ def get_env_setting(setting):
 
 # Host configuration
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Database
 
 DATABASES = {}
 
-# Cache
-
-CACHES = {}
-
 # Secret configuration
 
 SECRET_KEY = get_env_setting('SECRET_KEY')
+
+# django-storage configuration
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+
+# AWS settings
+AWS_ACCESS_KEY_ID = get_env_setting('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = get_env_setting('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = get_env_setting('AWS_STORAGE_BUCKET_NAME')
