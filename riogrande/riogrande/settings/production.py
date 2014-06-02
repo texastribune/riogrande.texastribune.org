@@ -5,6 +5,8 @@ from django.core.exceptions import ImproperlyConfigured
 
 from .base import *
 
+import dj_database_url
+
 
 def get_env_setting(setting):
     """ Get the environment setting or return exception """
@@ -21,7 +23,11 @@ ALLOWED_HOSTS = ['*']
 
 # Database
 
-DATABASES = {}
+DATABASES = {
+    'default': dj_database_url.config()
+}
+
+DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
 
 # Secret configuration
 
