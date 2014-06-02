@@ -25,6 +25,7 @@ INSTALLED_APPS = (
     # helpers
     'djgeojson',
     'sortedm2m',
+    'storages',
 
     # apps
     'measurements',
