@@ -2,3 +2,5 @@
 # in production that isn't in development.
 
 -r base.txt
+
+raven>=3
