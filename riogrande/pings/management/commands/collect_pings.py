@@ -5,8 +5,6 @@ import urllib2
 from django.core.management.base import BaseCommand
 from django.utils import dateparse
 
-from django.contrib.gis.geos import Point
-
 from pings.models import Ping
 
 FEED_API = ('https://api.findmespot.com/spot-main-web/consumer/rest-api'
@@ -26,7 +24,9 @@ class Command(BaseCommand):
 
         for r in messages:
             ping, created = Ping.objects.get_or_create(
-                location=Point(r['longitude'], r['latitude']),
+                location='POINT({0} {1})'.format(
+                    r['longitude'],
+                    r['latitude']),
                 pub_date=dateparse.parse_datetime(r['dateTime']),
                 api_id=r['id'],
             )
