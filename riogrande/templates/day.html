@@ -150,7 +150,7 @@ if(pings) {
 
   var data_layer = L.geoJson(pings).addTo(map);
 
-  map.fitBounds(data_layer.getBounds(), {maxZoom: 8});
+  map.fitBounds(data_layer.getBounds());
 }
 
 </script>
