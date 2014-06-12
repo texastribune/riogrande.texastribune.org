@@ -1,4 +1,4 @@
-from django.db import models
+from django.contrib.gis.db import models
 
 from photos.models import Photo
 
@@ -19,8 +19,9 @@ class Post(models.Model):
     # content fields
     text = models.TextField()
     lede_art = models.ForeignKey(Photo)
+    location = models.PointField()
 
-    objects = models.Manager()
+    objects = models.GeoManager()
     published = PublishedObjectsManager()
 
     def __unicode__(self):
