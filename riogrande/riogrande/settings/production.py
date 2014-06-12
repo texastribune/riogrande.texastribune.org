@@ -7,8 +7,6 @@ from .base import *
 
 import dj_database_url
 
-DEBUG = True
-
 
 def get_env_setting(setting):
     """ Get the environment setting or return exception """
