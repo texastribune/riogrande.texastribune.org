@@ -31,6 +31,10 @@ DATABASES = {
 
 DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
 
+# Heroku GeoDjango helper
+GEOS_LIBRARY_PATH = "{}/libgeos_c.so".format(environ.get('GEOS_LIBRARY_PATH'))
+GDAL_LIBRARY_PATH = "{}/libgdal.so".format(environ.get('GDAL_LIBRARY_PATH'))
+
 # Secret configuration
 
 SECRET_KEY = get_env_setting('SECRET_KEY')
