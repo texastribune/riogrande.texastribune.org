@@ -5,11 +5,17 @@ from django.contrib.gis.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.utils.timezone import localtime
 
+from riogrande.choices import PublicationStatus
+from riogrande.managers import PublishedObjectsManager
+
 
 class Measurement(models.Model):
 
     # publication fields
     pub_date = models.DateTimeField(u'Date/time of measurement')
+    pub_status = models.CharField(max_length=1,
+                                  choices=PublicationStatus.choices,
+                                  default=PublicationStatus.Draft)
 
     # location fields
     location = models.PointField()
@@ -37,6 +43,7 @@ class Measurement(models.Model):
                                           help_text=u'in degrees Celsius')
 
     objects = models.GeoManager()
+    published = PublishedObjectsManager()
 
     def __unicode__(self):
         return localtime(self.pub_date).strftime('%B %d, %Y at %I:%M %p')

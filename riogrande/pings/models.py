@@ -2,13 +2,20 @@ from django.contrib.gis.db import models
 
 from django.utils.timezone import localtime
 
+from riogrande.choices import PublicationStatus
+from riogrande.managers import PublishedObjectsManager
+
 
 class Ping(models.Model):
     location = models.PointField()
+    pub_status = models.CharField(max_length=1,
+                                  choices=PublicationStatus.choices,
+                                  default=PublicationStatus.Published)
     pub_date = models.DateTimeField()
     api_id = models.PositiveIntegerField(unique=True)
 
     objects = models.GeoManager()
+    published = PublishedObjectsManager()
 
     def __unicode__(self):
         return '({0}, {1}) on {2}'.format(

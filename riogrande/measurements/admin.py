@@ -11,6 +11,7 @@ class MeasurementAdmin(admin.ModelAdmin):
         (None, {
             'fields': [
                 'pub_date',
+                'pub_status',
                 'location',
             ]
         }),

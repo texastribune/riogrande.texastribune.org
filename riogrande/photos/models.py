@@ -3,6 +3,9 @@ from django.db import models
 from django.utils.text import slugify
 from django.utils.timezone import now
 
+from riogrande.choices import PublicationStatus
+from riogrande.managers import PublishedObjectsManager
+
 from sortedm2m.fields import SortedManyToManyField
 
 
@@ -14,11 +17,15 @@ class Photo(models.Model):
     slug = models.SlugField(unique=True, max_length=50)
     caption = models.TextField(blank=True)
     credit = models.CharField('photographer', max_length=50, blank=True)
-    date_added = models.DateTimeField(default=now)
-    is_public = models.BooleanField(default=True)
+    pub_date = models.DateTimeField(default=now)
+    pub_status = models.CharField(max_length=1,
+                                  choices=PublicationStatus.choices,
+                                  default=PublicationStatus.Draft)
+
+    published = PublishedObjectsManager()
 
     class Meta:
-        ordering = ['-date_added']
+        ordering = ['-pub_date']
 
     def __unicode__(self):
         return self.title
@@ -30,11 +37,13 @@ class Photo(models.Model):
 
 
 class Gallery(models.Model):
-    date_added = models.DateTimeField(default=now)
+    pub_date = models.DateTimeField(default=now)
     title = models.CharField(max_length=50)
     slug = models.SlugField(unique=True, max_length=50)
     description = models.TextField(blank=True)
-    is_public = models.BooleanField(default=True)
+    pub_status = models.CharField(max_length=1,
+                                  choices=PublicationStatus.choices,
+                                  default=PublicationStatus.Draft)
 
     photos = SortedManyToManyField(
         Photo,
@@ -43,8 +52,10 @@ class Gallery(models.Model):
         null=True,
         blank=True)
 
+    published = PublishedObjectsManager()
+
     class Meta:
-        ordering = ['-date_added']
+        ordering = ['-pub_date']
 
     def __unicode__(self):
         return self.title
