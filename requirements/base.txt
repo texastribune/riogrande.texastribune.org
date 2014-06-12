@@ -1,4 +1,5 @@
 Django==1.6.4
+django-choices==1.1.12
 django-geojson==2.4.0
 django-sortedm2m==0.7.0
 django-storages==1.1.8
