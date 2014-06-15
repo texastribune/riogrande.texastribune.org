@@ -28,6 +28,7 @@ INSTALLED_APPS = (
     'storages',
 
     # apps
+    'days',
     'measurements',
     'photos',
     'pings',
