@@ -25,23 +25,23 @@ class DayView(TemplateView):
         context['page_date'] = page_date
 
         context['pings'] = Ping.published.filter(
-            pub_date__contains=page_date)
+            pub_date__date__contains=page_date)
 
         try:
             context['post'] = Post.published.get(
-                pub_date__contains=page_date)
+                pub_date__date__contains=page_date)
         except Post.DoesNotExist:
             pass
 
         try:
             context['gallery'] = Gallery.published.get(
-                pub_date__contains=page_date)
+                pub_date__date__contains=page_date)
         except Gallery.DoesNotExist:
             pass
 
         try:
             context['measurement'] = Measurement.published.get(
-                pub_date__contains=page_date)
+                pub_date__date__contains=page_date)
         except Measurement.DoesNotExist:
             pass
 
