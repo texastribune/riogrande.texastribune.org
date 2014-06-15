@@ -8,11 +8,16 @@ from django.utils.timezone import localtime
 from riogrande.choices import PublicationStatus
 from riogrande.managers import PublishedObjectsManager
 
+from days.models import Day
+
 
 class Measurement(models.Model):
 
     # publication fields
-    pub_date = models.DateTimeField(u'Date/time of measurement')
+    pub_date = models.OneToOneField(
+        Day,
+        related_name='measurement_for',
+        null=True)
     pub_status = models.CharField(max_length=1,
                                   choices=PublicationStatus.choices,
                                   default=PublicationStatus.Draft)
@@ -46,4 +51,4 @@ class Measurement(models.Model):
     published = PublishedObjectsManager()
 
     def __unicode__(self):
-        return localtime(self.pub_date).strftime('%B %d, %Y at %I:%M %p')
+        return localtime(self.pub_date.date).strftime('%B %d, %Y at %I:%M %p')

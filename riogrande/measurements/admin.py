@@ -6,7 +6,6 @@ from pings.widgets import LatLonWidget
 
 
 class MeasurementAdmin(admin.ModelAdmin):
-    date_hierarchy = 'pub_date'
     fieldsets = [
         (None, {
             'fields': [
