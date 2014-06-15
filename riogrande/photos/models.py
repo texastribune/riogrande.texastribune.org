@@ -4,9 +4,11 @@ from django.utils.text import slugify
 from django.utils.timezone import now
 
 from riogrande.choices import PublicationStatus
-from riogrande.managers import PublishedObjectsManager
+from riogrande.managers import PublishedObjectsManager, PublishedObjectsPhotoManager
 
 from sortedm2m.fields import SortedManyToManyField
+
+from days.models import Day
 
 
 class Photo(models.Model):
@@ -22,7 +24,7 @@ class Photo(models.Model):
                                   choices=PublicationStatus.choices,
                                   default=PublicationStatus.Draft)
 
-    published = PublishedObjectsManager()
+    published = PublishedObjectsPhotoManager()
 
     class Meta:
         ordering = ['-pub_date']
@@ -37,7 +39,10 @@ class Photo(models.Model):
 
 
 class Gallery(models.Model):
-    pub_date = models.DateTimeField(default=now)
+    pub_date = models.OneToOneField(
+        Day,
+        related_name='gallery_for',
+        null=True)
     title = models.CharField(max_length=50)
     slug = models.SlugField(unique=True, max_length=50)
     description = models.TextField(blank=True)
@@ -55,7 +60,7 @@ class Gallery(models.Model):
     published = PublishedObjectsManager()
 
     class Meta:
-        ordering = ['-pub_date']
+        ordering = ['-pub_date__date']
 
     def __unicode__(self):
         return self.title
