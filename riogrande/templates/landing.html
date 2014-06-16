@@ -2,6 +2,20 @@
 
 {% block content %}
 
-<div>Rivers, man</div>
+{% for day in most_recent_days %}
+
+<div class="content-block">
+  <div class="content-day-header">
+    <header>
+      <h2>{{ day.date|date }}</h2>
+    </header>
+  </div>
+</div>
+
+{% include 'includes/day.html' with day=day %}
+
+<hr>
+
+{% endfor %}
 
 {% endblock %}
