@@ -1,7 +1,9 @@
-from datetime import date
+import datetime
 
+from django.shortcuts import get_object_or_404
 from django.views.generic import TemplateView
 
+from days.models import Day
 from measurements.models import Measurement
 from photos.models import Gallery
 from pings.models import Ping
@@ -11,38 +13,25 @@ from posts.models import Post
 class LandingView(TemplateView):
     template_name = 'landing.html'
 
+    def get_context_data(self, **kwargs):
+        context = super(LandingView, self).get_context_data(**kwargs)
+
+        context['most_recent_days'] = Day.objects.all()[:3]
+
+        return context
+
 
 class DayView(TemplateView):
     template_name = 'day.html'
 
     def get_context_data(self, **kwargs):
         context = super(DayView, self).get_context_data(**kwargs)
-        page_date = date(
-            int(context['year']),
-            int(context['month']),
-            int(context['day']))
-
-        context['page_date'] = page_date
-
-        context['pings'] = Ping.published.filter(
-            pub_date__date__contains=page_date)
-
-        try:
-            context['post'] = Post.published.get(
-                pub_date__date__contains=page_date)
-        except Post.DoesNotExist:
-            pass
-
-        try:
-            context['gallery'] = Gallery.published.get(
-                pub_date__date__contains=page_date)
-        except Gallery.DoesNotExist:
-            pass
-
-        try:
-            context['measurement'] = Measurement.published.get(
-                pub_date__date__contains=page_date)
-        except Measurement.DoesNotExist:
-            pass
+        date_format = '%Y__%m__%d'
+        date_string = '__'.join((
+            context['year'],
+            context['month'],
+            context['day']))
+        date = datetime.datetime.strptime(date_string, date_format).date()
+        context['day'] = get_object_or_404(Day, date__contains=date)
 
         return context
