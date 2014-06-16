@@ -1,0 +1,98 @@
+{% if day.post_for %}
+  {% if day.post_for.pub_status == 'P' %}
+    <div class="content-block">
+      <div class="content-header">
+        <header>
+          <h3>{{ day.post_for.headline }}</h3>
+        </header>
+      </div>
+    </div>
+    <div class="content-block">
+      <div class="content-prose">
+        <div class="content-photo">
+          <img src="{{ day.post_for.lede_art.image.url }}">
+          {% if day.post_for.lede_art.caption %}
+          <div class="content-photo-caption">
+            <span>{{ day.post_for.lede_art.caption|safe }}</span>
+            {% if day.post_for.lede_art.credit %}
+            <span class="content-photo-credit">{{ day.post_for.lede_art.credit }}</span>
+            {% endif %}
+          </div>
+          {% endif %}
+        </div>
+        {{ day.post_for.text|safe }}
+      </div>
+    </div>
+  {% endif %}
+{% endif %}
+
+{% if day.gallery_for %}
+  {% if day.gallery_for.pub_status == 'P' %}
+    {% for photo in day.gallery_for.photos.all %}
+    <div class="content-block">
+      <div class="content-photo">
+        <img src="{{ photo.image.url }}">
+        {% if photo.caption %}
+        <div class="content-photo-caption">
+          <span>{{ photo.caption|safe }}</span>
+          {% if photo.credit %}
+          <span class="content-photo-credit">{{ photo.credit }}</span>
+          {% endif %}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
+  {% endif %}
+{% endif %}
+
+{% if day.measurement_for %}
+  {% if day.measurement_for.pub_status == 'P' %}
+    <div class="content-block">
+      <div class="content-header">
+        <header>
+          <h3>Measurements</h3>
+        </header>
+      </div>
+    </div>
+    <div class="content-block">
+      <div class="content-measurements">
+        <dl>
+          <div class="measurement">
+            <dt>Air temperature</dt>
+            <dd>{{ day.measurement_for.air_temperature }}</dd>
+          </div>
+          <div class="measurement">
+            <dt>Conductivity</dt>
+            <dd>{{ day.measurement_for.conductivity }}</dd>
+          </div>
+          <div class="measurement">
+            <dt>Depth</dt>
+            <dd>{{ day.measurement_for.depth }}</dd>
+          </div>
+          <div class="measurement">
+            <dt>Dissolved oxygen</dt>
+            <dd>{{ day.measurement_for.dissolved_oxygen }}</dd>
+          </div>
+          <div class="measurement">
+            <dt>E. coli</dt>
+            <dd>{{ day.measurement_for.e_coli }}</dd>
+          </div>
+          <div class="measurement">
+            <dt>pH level</dt>
+            <dd>{{ day.measurement_for.ph_level }}</dd>
+          </div>
+          <div class="measurement">
+            <dt>Secchi disk transparency</dt>
+            <dd>{{ day.measurement_for.secchi_disk_transparency }}</dd>
+          </div>
+          <div class="measurement">
+            <dt>Water temperature</dt>
+            <dd>{{ day.measurement_for.water_temperature }}</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+
+  {% endif %}
+{% endif %}
