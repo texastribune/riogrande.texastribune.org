@@ -33,7 +33,7 @@ INSTALLED_APPS = (
     'photos',
     'pings',
     'posts',
-
+    'stories',
 )
 
 MIDDLEWARE_CLASSES = (
