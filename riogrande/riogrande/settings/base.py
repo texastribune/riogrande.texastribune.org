@@ -32,7 +32,6 @@ INSTALLED_APPS = (
     'measurements',
     'photos',
     'pings',
-    'pointers',
     'posts',
 
 )
