@@ -15,7 +15,7 @@ class Ping(models.Model):
                                   default=PublicationStatus.Published)
     pub_date = models.ForeignKey(
         Day,
-        related_name='ping_for',
+        related_name='pings',
         null=True)
     pub_time = models.TimeField()
     api_id = models.PositiveIntegerField(unique=True)
