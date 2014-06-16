@@ -5,13 +5,18 @@ from django.utils.timezone import localtime
 from riogrande.choices import PublicationStatus
 from riogrande.managers import PublishedObjectsManager
 
+from days.models import Day
+
 
 class Ping(models.Model):
     location = models.PointField()
     pub_status = models.CharField(max_length=1,
                                   choices=PublicationStatus.choices,
                                   default=PublicationStatus.Published)
-    pub_date = models.DateTimeField()
+    pub_date = models.OneToOneField(
+        Day,
+        related_name='ping_for',
+        null=True)
     api_id = models.PositiveIntegerField(unique=True)
 
     objects = models.GeoManager()
@@ -21,4 +26,4 @@ class Ping(models.Model):
         return '({0}, {1}) on {2}'.format(
             self.location.y,
             self.location.x,
-            localtime(self.pub_date).strftime('%B %d, %Y at %I:%M %p'))
+            localtime(self.pub_date.date).strftime('%B %d, %Y at %I:%M %p'))
