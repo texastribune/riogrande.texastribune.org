@@ -26,5 +26,8 @@ class Story(models.Model):
 
     published = PublishedObjectsManager()
 
+    class Meta:
+        verbose_name_plural = u'stories'
+
     def __unicode__(self):
         return self.headline
