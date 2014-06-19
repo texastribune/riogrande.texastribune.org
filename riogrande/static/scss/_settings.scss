@@ -3,18 +3,21 @@ $desktop: new-breakpoint(min-width 768px 12);
 $mobile: new-breakpoint(max-width 480px);
 
 // fonts
-$boldHeaderFont: $helvetica;
-$subHeaderFont: "apertura", $helvetica;
-$textFont: "jaf-facitweb", $helvetica;
+$textFont: $georgia;
+$sansTextFont: $helvetica;
+$boldHeaderFont: $georgia;
+$subHeaderFont: $sansTextFont;
 
 // colors
 $offblack: rgb(34, 34, 34);
+$offoffblack: rgb(51, 51, 51);
 $offwhite: rgb(238, 238, 238);
 $creditGray: rgb(136, 136, 136);
 $captionGray: rgb(102, 102, 102);
 
 $mainColor: rgb(217, 153, 40);
-$accentColor: rgb(239, 209, 160);
+$accentColor: rgb(204, 204, 204);
+$linkColor: rgb(0, 137, 144);
 
 @mixin visually-hidden {
   border: 0;
@@ -25,4 +28,10 @@ $accentColor: rgb(239, 209, 160);
   padding: 0;
   position: absolute;
   width: 1px;
+}
+
+@mixin omega-reset($nth, $current-columns: $grid-columns, $direction: get-direction($layout-direction, $default-layout-direction)) {
+  margin-#{ get-opposite-direction($direction) }: 0;
+  &:nth-child(#{$nth}) { margin-#{ $direction }: flex-gutter($current-columns, $gutter); }
+  &:nth-child(#{$nth}+1) { clear: none }
 }

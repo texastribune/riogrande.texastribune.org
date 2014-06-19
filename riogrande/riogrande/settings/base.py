@@ -28,11 +28,12 @@ INSTALLED_APPS = (
     'storages',
 
     # apps
+    'days',
     'measurements',
     'photos',
     'pings',
     'posts',
-
+    'stories',
 )
 
 MIDDLEWARE_CLASSES = (

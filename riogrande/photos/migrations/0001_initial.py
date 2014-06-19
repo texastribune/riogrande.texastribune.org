@@ -15,19 +15,20 @@ class Migration(SchemaMigration):
             ('title', self.gf('django.db.models.fields.CharField')(max_length=50)),
             ('slug', self.gf('django.db.models.fields.SlugField')(unique=True, max_length=50)),
             ('caption', self.gf('django.db.models.fields.TextField')(blank=True)),
-            ('date_added', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now)),
-            ('is_public', self.gf('django.db.models.fields.BooleanField')(default=True)),
+            ('credit', self.gf('django.db.models.fields.CharField')(max_length=50, blank=True)),
+            ('pub_date', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now)),
+            ('pub_status', self.gf('django.db.models.fields.CharField')(default='D', max_length=1)),
         ))
         db.send_create_signal(u'photos', ['Photo'])
 
         # Adding model 'Gallery'
         db.create_table(u'photos_gallery', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('date_added', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now)),
+            ('pub_date', self.gf('django.db.models.fields.related.OneToOneField')(related_name='gallery_for', unique=True, null=True, to=orm['days.Day'])),
             ('title', self.gf('django.db.models.fields.CharField')(max_length=50)),
             ('slug', self.gf('django.db.models.fields.SlugField')(unique=True, max_length=50)),
             ('description', self.gf('django.db.models.fields.TextField')(blank=True)),
-            ('is_public', self.gf('django.db.models.fields.BooleanField')(default=True)),
+            ('pub_status', self.gf('django.db.models.fields.CharField')(default='D', max_length=1)),
         ))
         db.send_create_signal(u'photos', ['Gallery'])
 
@@ -53,23 +54,29 @@ class Migration(SchemaMigration):
 
 
     models = {
+        u'days.day': {
+            'Meta': {'object_name': 'Day'},
+            'date': ('django.db.models.fields.DateTimeField', [], {}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'})
+        },
         u'photos.gallery': {
-            'Meta': {'ordering': "['-date_added']", 'object_name': 'Gallery'},
-            'date_added': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
+            'Meta': {'ordering': "['-pub_date__date']", 'object_name': 'Gallery'},
             'description': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'is_public': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
             'photos': ('sortedm2m.fields.SortedManyToManyField', [], {'blank': 'True', 'related_name': "'galleries'", 'null': 'True', 'symmetrical': 'False', 'to': u"orm['photos.Photo']"}),
+            'pub_date': ('django.db.models.fields.related.OneToOneField', [], {'related_name': "'gallery_for'", 'unique': 'True', 'null': 'True', 'to': u"orm['days.Day']"}),
+            'pub_status': ('django.db.models.fields.CharField', [], {'default': "'D'", 'max_length': '1'}),
             'slug': ('django.db.models.fields.SlugField', [], {'unique': 'True', 'max_length': '50'}),
             'title': ('django.db.models.fields.CharField', [], {'max_length': '50'})
         },
         u'photos.photo': {
-            'Meta': {'ordering': "['-date_added']", 'object_name': 'Photo'},
+            'Meta': {'ordering': "['-pub_date']", 'object_name': 'Photo'},
             'caption': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
-            'date_added': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
+            'credit': ('django.db.models.fields.CharField', [], {'max_length': '50', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'image': ('django.db.models.fields.files.ImageField', [], {'max_length': '100'}),
-            'is_public': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
+            'pub_date': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
+            'pub_status': ('django.db.models.fields.CharField', [], {'default': "'D'", 'max_length': '1'}),
             'slug': ('django.db.models.fields.SlugField', [], {'unique': 'True', 'max_length': '50'}),
             'title': ('django.db.models.fields.CharField', [], {'max_length': '50'})
         }

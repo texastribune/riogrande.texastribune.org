@@ -6,8 +6,6 @@ from .widgets import LatLonWidget
 
 
 class PingAdmin(admin.ModelAdmin):
-    date_hierarchy = 'pub_date'
-
     formfield_overrides = {
         models.PointField: {'widget': LatLonWidget}
     }

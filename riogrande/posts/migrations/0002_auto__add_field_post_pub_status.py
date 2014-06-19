@@ -8,28 +8,18 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding field 'Photo.credit'
-        db.add_column(u'photos_photo', 'credit',
-                      self.gf('django.db.models.fields.CharField')(default='', max_length=50, blank=True),
+        # Adding field 'Post.pub_status'
+        db.add_column(u'posts_post', 'pub_status',
+                      self.gf('django.db.models.fields.CharField')(default='D', max_length=1),
                       keep_default=False)
 
 
     def backwards(self, orm):
-        # Deleting field 'Photo.credit'
-        db.delete_column(u'photos_photo', 'credit')
+        # Deleting field 'Post.pub_status'
+        db.delete_column(u'posts_post', 'pub_status')
 
 
     models = {
-        u'photos.gallery': {
-            'Meta': {'ordering': "['-date_added']", 'object_name': 'Gallery'},
-            'date_added': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            'description': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'is_public': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
-            'photos': ('sortedm2m.fields.SortedManyToManyField', [], {'blank': 'True', 'related_name': "'galleries'", 'null': 'True', 'symmetrical': 'False', 'to': u"orm['photos.Photo']"}),
-            'slug': ('django.db.models.fields.SlugField', [], {'unique': 'True', 'max_length': '50'}),
-            'title': ('django.db.models.fields.CharField', [], {'max_length': '50'})
-        },
         u'photos.photo': {
             'Meta': {'ordering': "['-date_added']", 'object_name': 'Photo'},
             'caption': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
@@ -40,7 +30,17 @@ class Migration(SchemaMigration):
             'is_public': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
             'slug': ('django.db.models.fields.SlugField', [], {'unique': 'True', 'max_length': '50'}),
             'title': ('django.db.models.fields.CharField', [], {'max_length': '50'})
+        },
+        u'posts.post': {
+            'Meta': {'object_name': 'Post'},
+            'headline': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'lede_art': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['photos.Photo']"}),
+            'pub_date': ('django.db.models.fields.DateTimeField', [], {}),
+            'pub_status': ('django.db.models.fields.CharField', [], {'default': "'D'", 'max_length': '1'}),
+            'slug': ('django.db.models.fields.SlugField', [], {'max_length': '100'}),
+            'text': ('django.db.models.fields.TextField', [], {})
         }
     }
 
-    complete_apps = ['photos']
+    complete_apps = ['posts']

@@ -1,157 +1,26 @@
 {% extends "base.html" %}
-{% load geojson_tags %}
 
-{% block data_script %}
-
-{% if pings %}
-var pings = {{ pings|geojsonfeature:"location"|safe }};
+{% block opengraph %}
+{% if day.post_for %}
+<meta property="og:description" content="{{ day.post_for.text|striptags|truncatewords:100 }}">
 {% else %}
-var pings = {};
+<meta property="og:description" content="{{ day.date|date }} Blog Updates">
 {% endif %}
-
+{% if day.post_for %}
+<meta property="og:title" content="{{ day.post_for.headline }} - {{ day.date|date }}">
+{% else %}
+<meta property="og:title" content="Disappearing Rio Grande - {{ day.date|date }}">
+{% endif %}
+<meta property="og:url" content="{{ day.get_share_url }}">
+{% if day.post_for %}
+<meta property="og:image" content="{{ day.post_for.lede_art.image.path }}">
+{% elif day.gallery_for %}
+<meta property="og:image" content="{{ day.gallery_for.photos.all.0.image.path }}">
+{% endif %}
 {% endblock %}
 
 {% block content %}
 
-<div class="content-block">
-  <div class="content-day-header">
-    <header>
-      <h2>{{ page_date|date }}</h2>
-    </header>
-  </div>
-</div>
+{% include 'includes/day.html' with day=day %}
 
-{% if pings %}
-
-<div class="map" id="map"></div>
-
-<hr>
-
-{% endif %}
-
-{% if measurement %}
-  <div class="content-block">
-    <div class="content-header">
-      <header>
-        <h3>Measurements</h3>
-      </header>
-    </div>
-  </div>
-  <div class="content-block">
-    <div class="content-measurements">
-      <dl>
-        <div class="measurement">
-          <dt>Air temperature</dt>
-          <dd>{{ measurement.air_temperature }}</dd>
-        </div>
-        <div class="measurement">
-          <dt>Conductivity</dt>
-          <dd>{{ measurement.conductivity }}</dd>
-        </div>
-        <div class="measurement">
-          <dt>Depth</dt>
-          <dd>{{ measurement.depth }}</dd>
-        </div>
-        <div class="measurement">
-          <dt>Dissolved oxygen</dt>
-          <dd>{{ measurement.dissolved_oxygen }}</dd>
-        </div>
-        <div class="measurement">
-          <dt>E. coli</dt>
-          <dd>{{ measurement.e_coli }}</dd>
-        </div>
-        <div class="measurement">
-          <dt>pH level</dt>
-          <dd>{{ measurement.ph_level }}</dd>
-        </div>
-        <div class="measurement">
-          <dt>Secchi disk transparency</dt>
-          <dd>{{ measurement.secchi_disk_transparency }}</dd>
-        </div>
-        <div class="measurement">
-          <dt>Water temperature</dt>
-          <dd>{{ measurement.water_temperature }}</dd>
-        </div>
-      </dl>
-    </div>
-  </div>
-
-  <hr>
-{% endif %}
-
-{% if post %}
-  <div class="content-block">
-    <div class="content-header">
-      <header>
-        <h3>{{ post.headline }}</h3>
-      </header>
-    </div>
-  </div>
-  <div class="content-block">
-    <div class="content-prose">
-      <div class="content-photo">
-        <img src="{{ post.lede_art.image.url }}">
-        {% if post.lede_art.caption %}
-        <div class="content-photo-caption">
-          <span>{{ post.lede_art.caption|safe }}</span>
-          {% if post.lede_art.credit %}
-          <span class="content-photo-credit">{{ post.lede_art.credit }}</span>
-          {% endif %}
-        </div>
-        {% endif %}
-      </div>
-      {{ post.text|safe }}
-    </div>
-  </div>
-
-  <hr>
-{% endif %}
-
-{% if gallery %}
-    {% for photo in gallery.photos.all %}
-    <div class="content-block">
-      <div class="content-photo">
-        <img src="{{ photo.image.url }}">
-        {% if photo.caption %}
-        <div class="content-photo-caption">
-          <span>{{ photo.caption|safe }}</span>
-          {% if photo.credit %}
-          <span class="content-photo-credit">{{ photo.credit }}</span>
-          {% endif %}
-        </div>
-        {% endif %}
-      </div>
-    </div>
-    {% endfor %}
-
-    <hr>
-{% endif %}
-
-{% endblock %}
-
-{% block extra_style %}
-<link href='//api.tiles.mapbox.com/mapbox.js/v1.6.3/mapbox.css' rel='stylesheet' />
-{% endblock %}
-
-{% block extra_script %}
-<script src='//api.tiles.mapbox.com/mapbox.js/v1.6.3/mapbox.js'></script>
-<script>
-
-var map_id = 'texastribune.ibpc7iio';
-
-if(pings) {
-  var map = L.mapbox.map('map', map_id, {
-    tileLayer: {
-      detectRetina: true
-    }
-  });
-
-  map.scrollWheelZoom.disable();
-
-  var data_layer = L.geoJson(pings).addTo(map);
-
-  map.fitBounds(data_layer.getBounds());
-}
-
-</script>
 {% endblock %}

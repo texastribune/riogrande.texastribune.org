@@ -1,15 +1,26 @@
-from datetime import date
+import datetime
 
-from django.views.generic import TemplateView
+from django.shortcuts import get_object_or_404
+from django.views.generic import DateDetailView, ListView, TemplateView
 
+from days.models import Day
 from measurements.models import Measurement
 from photos.models import Gallery
 from pings.models import Ping
 from posts.models import Post
+from stories.models import Story
 
 
 class LandingView(TemplateView):
     template_name = 'landing.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(LandingView, self).get_context_data(**kwargs)
+
+        context['most_recent_days'] = Day.objects.all()[:3]
+        context['most_recent_story'] = Story.published.latest('pub_date')
+
+        return context
 
 
 class DayView(TemplateView):
@@ -17,32 +28,30 @@ class DayView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(DayView, self).get_context_data(**kwargs)
-        page_date = date(
-            int(context['year']),
-            int(context['month']),
-            int(context['day']))
-
-        context['page_date'] = page_date
-
-        context['pings'] = Ping.objects.filter(
-            pub_date__contains=page_date)
-
-        try:
-            context['post'] = Post.objects.get(
-                pub_date__contains=page_date)
-        except Post.DoesNotExist:
-            pass
-
-        try:
-            context['gallery'] = Gallery.objects.get(
-                date_added__contains=page_date)
-        except Gallery.DoesNotExist:
-            pass
-
-        try:
-            context['measurement'] = Measurement.objects.get(
-                pub_date__contains=page_date)
-        except Measurement.DoesNotExist:
-            pass
+        date_format = '%Y__%m__%d'
+        date_string = '__'.join((
+            context['year'],
+            context['month'],
+            context['day']))
+        date = datetime.datetime.strptime(date_string, date_format).date()
+        context['day'] = get_object_or_404(Day, date__contains=date)
+        context['most_recent_story'] = Story.published.latest('pub_date')
 
         return context
+
+
+class StoryDetail(DateDetailView):
+    date_field = 'pub_date'
+    model = Story
+    month_format = '%m'
+    template_name = 'story.html'
+
+
+class AboutView(TemplateView):
+    template_name = 'about.html'
+
+
+class ArchiveView(ListView):
+    model = Day
+    template_name = 'archive.html'
+

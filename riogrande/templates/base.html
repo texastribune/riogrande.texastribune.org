@@ -3,11 +3,38 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Rio Grande Project | The Texas Tribune</title>
+  <title>Disappearing Rio Grande | The Texas Tribune</title>
+  <link rel="shortcut icon" type="image/x-icon" href="https://s3.amazonaws.com/static.texastribune.org/common/images/favicon.ico">
   {% load staticfiles %}
+  <meta property="og:site_name" content="The Texas Tribune">
+  {% block opengraph %}
+  <meta property="og:description" content="For more than 3,000 years the Rio Grande has been the lifeblood of the valleys and civilizations it flowed through, but its future is uncertain. A publication of The Texas Tribune.">
+  <meta property="og:url" content="http://www.riogrande.texastribune.org">
+  {% endblock %}
   <script src="//use.typekit.net/nvt2cmo.js"></script>
   <script>try{Typekit.load();}catch(e){}</script>
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="{% static 'css/app.css' %}">
+  <link rel="apple-touch-icon-precomposed" sizes="60x60" href="http://s3.amazonaws.com/static.texastribune.org/media/icons/iPhone_Icon_60x60.png"/>
+  <link rel="apple-touch-icon-precomposed" sizes="76x76" href="http://s3.amazonaws.com/static.texastribune.org/media/icons/iPad_Icon_76x76.png"/>
+  <link rel="apple-touch-icon-precomposed" sizes="120x120" href="http://s3.amazonaws.com/static.texastribune.org/media/icons/iPhone_Icon_120x120.png"/>
+  <link rel="apple-touch-icon-precomposed" sizes="152x152" href="http://s3.amazonaws.com/static.texastribune.org/media/icons/iPad_Icon_152x152.png"/>
+  <script>
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9827490-1']);
+  _gaq.push(['_setDomainName', 'texastribune.org']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<link href='//api.tiles.mapbox.com/mapbox.js/v1.6.3/mapbox.css' rel='stylesheet' />
+<script src='//api.tiles.mapbox.com/mapbox.js/v1.6.3/mapbox.js'></script>
   {% block extra_style %}{% endblock %}
   <script>
     {% block data_script %}{% endblock %}
@@ -19,59 +46,114 @@
 <div class="logo">
 <a href="http://www.texastribune.org/"><img src="{% static 'images/txtrib-logo-white.svg' %}"></a>
 </div>
-
 </div>
 </header>
+
+<div class="app-header">
+  <div class="head">
+    <header>
+      <h1><a href="{% url 'landing' %}">Disappearing Rio Grande</a></h1>
+    </header>
+    <nav>
+      <ul>
+        <a href="{% url 'landing' %}"><li>Home</li></a>
+        <a href="{% url 'archive' %}"><li>The Journey</li></a>
+        <a href="{% url 'about' %}"><li>About</li></a>
+      </ul>
+    </nav>
+  </div>
+</div>
 
 <section class="app-container">
 
 <section class="content-container">
 
-<header class="app-header">
-  <h1><a href="{% url 'landing' %}">Rio Grande Project</a></h1>
-</header>
+{% if most_recent_story %}
 
-<hr>
+<div class="content-block row">
+  <div class="story-header-tease">Featured content</div>
+  <div class="story-image-tease">
+  <a href="{{ most_recent_story.get_absolute_url }}"><img src="{{ most_recent_story.lede_art.image.url }}"></a>
+  </div>
+  <div class="story-pub-tease">
+    <header>
+      <h2><a href="{{ most_recent_story.get_absolute_url }}">{{ most_recent_story.headline }}</a></h2>
+    <p>by <a href="mailto:{{ most_recent_story.author_email }}">{{ most_recent_story.author }}</a> | {{ most_recent_story.pub_date.date|date }}</p>
+    </header>
+  </div>
+  <div class="story-summary-tease">
+    {{ most_recent_story.summary|safe }}
+
+    <span class="story-summary-read-more"><a href="{{ most_recent_story.get_absolute_url }}">Read more</a></span>
+  </div>
+</div>
+
+{% endif %}
 
 {% block content %}{% endblock %}
 
 </section>
+
+<hr class="yellow divider">
+
+<section class="about">
+  <div class="content-block">
+    <div class="content-prose">
+      <p class="subhead"><a href="{% url 'about' %}">About</a></p>
+      <p>The Rio Grande has been the lifeblood of the valleys and civilizations it flowed through for more than 3,000 years. As cities and farms suck it dry and a warming climate makes it evaporate faster, the river's future has never been more uncertain. Reporter Colin McDonald and photojournalist Erich Schlegel are traveling the length of the Rio Grande, interviewing those who depend on and control it, taking photos and videos, and cataloging the chemistry and biology of the river from the Rocky Mountains to the Gulf of Mexico.
+
+      <p>Their work will be uploaded from the banks of the river via satellite and shared here as they spend seven months on this 1,900-mile journey.</p>
+    </div>
+  </div>
+  <div class="content-block">
+    <div class="content-prose">
+      <p class="subhead">Contributors</p>
+    </div>
+    <div class="content-contributors">
+      <div class="contributor">
+        <div class="contributor-name"><a href="mailto:mcd.colin@gmail.com">Colin McDonald</a></div>
+        <div class="contributor-credit">Reporter</div>
+      </div>
+      <div class="contributor">
+        <div class="contributor-name"><a href="mailto:erichross1@gmail.com">Erich Schlegel</a></div>
+        <div class="contributor-credit">Photojournalist</div>
+      </div>
+      <div class="contributor">
+        <div class="contributor-name"><a href="mailto:jessiloerch@gmail.com">Jessi Loerch</a></div>
+        <div class="contributor-credit">Project Editor</div>
+      </div>
+      <div class="contributor">
+        <div class="contributor-name"><a href="mailto:rmurphy@texastribune.org">Ryan Murphy</a></div>
+        <div class="contributor-credit">News Apps Team Lead | <a href="https://twitter.com/rdmurphy">@rdmurphy</a></div>
+      </div>
+      <div class="contributor">
+        <div class="contributor-name"><a href="mailto:bhasson@texastribune.org">Ben Hasson</a></div>
+        <div class="contributor-credit">Web Designer | <a href="https://twitter.com/been_hussln">@been_hussln</a></div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<footer class="footer">
+</section>
+
+<footer class="tribune-footer">
 <div class="app-container">
-<div>
-  <a href="https://twitter.com/newsapps"><img class="logo" src="{% static 'images/newsapps.svg' %}"></a>
-</div>
-<div>
-<ul>
-  <li>SECTIONS</li>
-  <li><a href="/economy/" data-section="economy">Economy</a></li>
-  <li><a href="/education/" data-section="education">Education</a></li>
-  <li><a href="/energy-and-environment/" data-section="energy-and-environment">Energy &amp; Environment</a></li>
-  <li><a href="/government/" data-section="government">Government</a></li>
-  <li><a href="/health-and-human-services/" data-section="health-and-human-services">Health &amp; Human Services</a></li>
-  <li><a href="/law-and-order/" data-section="law-and-order">Law &amp; Order</a></li>
-  <li><a href="/people/" data-section="people">People</a></li>
-  <li><a href="/politics/" data-section="politics">Politics</a></li>
-  <li><a href="/race-and-immigration/" data-section="race-and-immigration">Race &amp; Immigration</a></li>
-  <li><a href="/transportation/" data-section="transportation">Transportation</a></li>
-</ul>
-</div>
-<div>
-  <ul>
-    <li>© 2014 The Texas Tribune</li>
-    <li><a href="#TODO">About Us</a></li>
-    <li><a href="#TODO">Who Funds Us?</a></li>
-    <li><a href="#TODO">Terms of Service</a></li>
-    <li><a href="#TODO">Code of Ethics</a></li>
-    <li><a href="#TODO">Privacy Policy</a></li>
-    <li><a href="#TODO">Corrections</a></li>
-    <li><a href="#TODO">Advertise</a></li>
-    <li><a href="#TODO">Newsletter Signup</a></li>
-    <li><a href="#TODO">Donate</a></li>
-</ul>
-</div>
+  <nav class="first-nav">
+    <ul>
+      <li>&copy; 2014 <a href="http://www.texastribune.org/">The Texas Tribune</a></li>
+    </ul>
+  </nav>
+  <nav class="last-nav">
+    <ul>
+      <li><a href="http://www.texastribune.org/about/">About Us</a></li>
+      <li><a href="http://www.texastribune.org/contact/">Contact Us</a></li>
+      <li><a href="http://www.texastribune.org/support-us/donors-and-members/">Who Funds Us?</a></li>
+      <li><a href="http://www.texastribune.org/terms-of-service/">Terms of Service</a></li>
+      <li><a href="http://www.texastribune.org/ethics/">Code of Ethics</a></li>
+      <li><a href="http://www.texastribune.org/privacy/">Privacy Policy</a></li>
+      <li><a href="https://www.texastribune.org/join/">Donate</a></li>
+    </ul>
+  </nav>
 </div>
 </footer>
 
