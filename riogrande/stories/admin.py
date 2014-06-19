@@ -6,6 +6,8 @@ from .models import Story
 
 
 class StoryAdmin(admin.ModelAdmin):
+    exclude = ('day_pub_date', )
+
     formfield_overrides = {
         models.TextField: {
             'widget': forms.Textarea(attrs={

@@ -27,4 +27,4 @@ class Ping(models.Model):
         return '({0}, {1}) on {2}'.format(
             self.location.y,
             self.location.x,
-            localtime(self.pub_date.date).strftime('%B %d, %Y'))
+            self.pub_date.date.isoformat())

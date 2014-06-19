@@ -1,0 +1,17 @@
+{% spaceless %}
+
+<div class="share-row">
+  <div>
+    {% if object.headline %}
+    <a href="mailto:?subject=Disappearing Rio Grande - {{ object.headline|urlencode }}&amp;body={% filter urlencode %}Check out this story from Disappearing Rio Grande: {{ object.get_share_url }}{% endfilter %}" title="share via email"><i class="fa fa-envelope"></i> Email</a>
+    {% else %}
+    <a href="mailto:?subject=Disappearing Rio Grande - {{ object.date|date|urlencode }}&amp;body={% filter urlencode %}Check out this blog update from Disappearing Rio Grande: {{ object.get_share_url }}{% endfilter %}" title="share via email"><i class="fa fa-envelope"></i> Email</a>
+    {% endif %}
+  </div>
+  <div>
+    <a href="https://twitter.com/home?status={% filter urlencode %}{% if object.headline %}{{ object.headline|safe }}{% else %}Disappearing Rio Grande | {{ object.date|date|safe }}{% endif %} {{ object.get_share_url }}{% endfilter %}"title="share on Twitter" target="_blank"><i class="fa fa-twitter"></i> Twitter</a></div>
+  <div><a href="http://www.facebook.com/sharer.php?u={{ object.get_share_url|urlencode }}"
+     title="share on Facebook" target="_blank"><i class="fa fa-facebook"></i> Facebook</a></div>
+</div>
+
+{% endspaceless %}

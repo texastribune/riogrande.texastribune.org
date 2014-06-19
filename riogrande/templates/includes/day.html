@@ -1,3 +1,40 @@
+{% load geojson_tags %}
+
+<hr>
+
+<div class="content-block">
+  <div class="content-day-header">
+    <header>
+      <h2><a href="{% url 'day' day.date.year day.date.month day.date.day %}">{{ day.date|date }}</a></h2>
+    </header>
+  </div>
+  {% if not day.post_for %}
+    {% include 'includes/share.html' with object=day %}
+  {% endif %}
+</div>
+
+{% if day.story_for %}
+  {% if day.story_for.pub_status == 'P' %}
+    <div class="content-block row">
+      <div class="story-header-tease">Story</div>
+      <div class="story-image-tease">
+      <a href="{{ day.story_for.get_absolute_url }}"><img src="{{ day.story_for.lede_art.image.url }}"></a>
+      </div>
+      <div class="story-pub-tease">
+        <header>
+          <h2><a href="{{ day.story_for.get_absolute_url }}">{{ day.story_for.headline }}</a></h2>
+        <p>by <a href="mailto:{{ day.story_for.author_email }}">{{ day.story_for.author }}</a></p>
+        </header>
+      </div>
+      <div class="story-summary-tease">
+        {{ day.story_for.summary|safe }}
+
+        <span class="story-summary-read-more"><a href="{{ day.story_for.get_absolute_url }}">Read more</a></span>
+      </div>
+    </div>
+  {% endif %}
+{% endif %}
+
 {% if day.post_for %}
   {% if day.post_for.pub_status == 'P' %}
     <div class="content-block">
@@ -8,18 +45,19 @@
       </div>
     </div>
     <div class="content-block">
-      <div class="content-prose">
-        <div class="content-photo">
-          <img src="{{ day.post_for.lede_art.image.url }}">
-          {% if day.post_for.lede_art.caption %}
-          <div class="content-photo-caption">
-            <span>{{ day.post_for.lede_art.caption|safe }}</span>
-            {% if day.post_for.lede_art.credit %}
-            <span class="content-photo-credit">{{ day.post_for.lede_art.credit }}</span>
-            {% endif %}
-          </div>
+      <div class="content-photo">
+        <img src="{{ day.post_for.lede_art.image.url }}">
+        {% if day.post_for.lede_art.caption %}
+        <div class="content-photo-caption">
+          <span>{{ day.post_for.lede_art.caption|safe }}</span>
+          {% if day.post_for.lede_art.credit %}
+            <span class="content-photo-credit">Photo by: {{ day.post_for.lede_art.credit }}</span>
           {% endif %}
         </div>
+        {% endif %}
+      </div>
+      {% include 'includes/share.html' with object=day %}
+      <div class="content-prose">
         {{ day.post_for.text|safe }}
       </div>
     </div>
@@ -28,15 +66,22 @@
 
 {% if day.gallery_for %}
   {% if day.gallery_for.pub_status == 'P' %}
+    <div class="content-block">
+      <div class="content-header content-sub-header">
+        <header>
+          <h4>Photos</h4>
+        </header>
+      </div>
+    </div>
     {% for photo in day.gallery_for.photos.all %}
     <div class="content-block">
-      <div class="content-photo">
+      <div class="content-gallery-photo">
         <img src="{{ photo.image.url }}">
         {% if photo.caption %}
         <div class="content-photo-caption">
           <span>{{ photo.caption|safe }}</span>
           {% if photo.credit %}
-          <span class="content-photo-credit">{{ photo.credit }}</span>
+          <span class="content-photo-credit">Photo by: {{ day.post_for.lede_art.credit }}</span>
           {% endif %}
         </div>
         {% endif %}
@@ -49,50 +94,140 @@
 {% if day.measurement_for %}
   {% if day.measurement_for.pub_status == 'P' %}
     <div class="content-block">
-      <div class="content-header">
+      <div class="content-header content-sub-header">
         <header>
-          <h3>Measurements</h3>
+          <h4>Measurements</h4>
         </header>
       </div>
     </div>
     <div class="content-block">
       <div class="content-measurements">
-        <dl>
           <div class="measurement">
-            <dt>Air temperature</dt>
-            <dd>{{ day.measurement_for.air_temperature }}</dd>
+            <div class="measurement-amount">{{ day.measurement_for.air_temperature }}</div>
+            <div class="measurement-name">Air temperature</div>
           </div>
           <div class="measurement">
-            <dt>Conductivity</dt>
-            <dd>{{ day.measurement_for.conductivity }}</dd>
+            <div class="measurement-amount">{{ day.measurement_for.conductivity }}</div>
+            <div class="measurement-name">Conductivity</div>
           </div>
           <div class="measurement">
-            <dt>Depth</dt>
-            <dd>{{ day.measurement_for.depth }}</dd>
+            <div class="measurement-amount">{{ day.measurement_for.depth }}</div>
+            <div class="measurement-name">Depth of Measurement</div>
           </div>
           <div class="measurement">
-            <dt>Dissolved oxygen</dt>
-            <dd>{{ day.measurement_for.dissolved_oxygen }}</dd>
+            <div class="measurement-amount">{{ day.measurement_for.dissolved_oxygen }}</div>
+            <div class="measurement-name">Dissolved oxygen</div>
           </div>
           <div class="measurement">
-            <dt>E. coli</dt>
-            <dd>{{ day.measurement_for.e_coli }}</dd>
+            <div class="measurement-amount">{{ day.measurement_for.e_coli }}</div>
+            <div class="measurement-name">E. coli</div>
           </div>
           <div class="measurement">
-            <dt>pH level</dt>
-            <dd>{{ day.measurement_for.ph_level }}</dd>
+            <div class="measurement-amount">{{ day.measurement_for.ph_level }}</div>
+            <div class="measurement-name">pH level</div>
           </div>
           <div class="measurement">
-            <dt>Secchi disk transparency</dt>
-            <dd>{{ day.measurement_for.secchi_disk_transparency }}</dd>
+            <div class="measurement-amount">{{ day.measurement_for.secchi_disk_transparency }}</div>
+            <div class="measurement-name">Secchi disk transparency</div>
           </div>
           <div class="measurement">
-            <dt>Water temperature</dt>
-            <dd>{{ day.measurement_for.water_temperature }}</dd>
+            <div class="measurement-amount">{{ day.measurement_for.water_temperature }}</div>
+            <div class="measurement-name">Water temperature</div>
           </div>
-        </dl>
       </div>
     </div>
+    <div class="content-block">
+      <div class="content-glossary">
+        <div class="glossary-header">
+          <header>
+            <h1><i class="fa fa-info-circle"></i> What is this?</h1>
+          </header>
+        </div>
+        <div class="glossary-about">
+          <p>As they travel, Colin and Erich are taking water samples for the following periodic water quality tests. In partnership with The Meadows Center for Water and the Environment’s Texas Stream Team Program at Texas State University, the results will be added to a public database it helps maintain for research and monitoring water quality.</p>
+        </div>
+        <div class="glossary-terms">
+          <dl>
+            <dt>Air/Water Temperature</dt>
+            <dd>Temperature impacts everything from the amount of oxygen in the water and the metabolism of aquatic species to how easily compounds dissolve. Most species can tolerate slow seasonal changes, but can go into thermal stress or shock when temperatures change by more than one or two degrees Celsius in 24 hours.</dd>
+
+            <dt>pH Level</dt>
+            <dd>The pH scale measures water’s acidity and runs on a logarithmic scale from 1.0 to 14.0, with 7.0 considered neutral. Anything below 7 is acidic and anything above is basic. A pH range of 6.5 to 8.2 is optimal for most organisms.</dd>
+
+            <dt>Dissolved Oxygen</dt>
+            <dd>Oxygen is just as vital for life below the surface as it is above. The amount needed varies according to species and stage of life, but generally 5.0 to 6.0 milligrams per liter is required for growth and activity. Levels bellow 3.0 mg/L are stressful to most fish species and levels below 2.0 mg/L for an extended period of time will cause fish kills.</dd>
+
+            <dt>Conductivity</dt>
+            <dd>Conductivity levels depend mainly on the how easily the rocks and soils a stream passes through dissolve. For example high levels of conductivity are often found with water that passes through limestone and gypsum because it will pickup the calcium, carbonate and sulfate from those rock formations. However discharges into a water body, such as a failing sewage system, can also raise the conductivity because of the presence of chloride, phosphate and nitrate.</dd>
+
+            <dt>Water Clarity</dt>
+            <dd>Turbid water can come from high levels of sediment or plankton. Both will block sunlight to aquatic plants and the sediments can carry pollution such as nutrients and pesticides. Low levels of turbidity may indicate a healthy and well-functioning ecosystem. High levels can be an indicator of runoff from eroding soils or blooms of microscopic plankton due to high levels of nutrients.</dd>
+
+            <dt>E. coli</dt>
+            <dd>E. coli bacteria are found in the colon of warm-blooded animals. If the pathogen is found in water it’s an indicator that fecal mater from humans, pets, livestock or wildlife is also present and may pose a public health threat. For drinking water the standard is to have no E. coli. But almost all non-treated water has some E. coli in it and at low levels it does not represent a substantial health threat to those who swim or wade in it. The Environmental Protection Agency has set the water quality standard for these types of activities at 126 colony forming units per 100 mL.</dd>
+
+            <dt>Secchi disk transparency</dt>
+            <dd>The Secchi disk is a plain white, circular disk used to measure water transparency in bodies of water. It is lowered into the water of a lake or other water body until it can be no longer seen. This depth of disappearance, called the Secchi disk transparency, is a conventional measure of the transparency of the water.</dd>
+          </dl>
+        </div>
+      </div>
+    </di  v>
 
   {% endif %}
+{% endif %}
+
+{% if day.pings.all %}
+
+<div class="content-block">
+  <div class="content-header">
+    <header>
+      <h4>Check-ins</h4>
+    </header>
+  </div>
+</div>
+
+<div class="map" id="map_{{ day.pk }}"></div>
+
+<div class="content-block">
+  <div class="content-glossary">
+    <div class="glossary-about">
+      <p>Each point represents a check-in made by Colin. Use this map to see where Colin and Erich traveled each day.</p>
+    </div>
+  </div>
+</div>
+
+{% block extra_script %}
+<script>
+
+(function() {
+
+var pings_{{ day.pk }} = {
+  "type": "FeatureCollection",
+  "features": [{% for p in day.pings.geojson %}
+  {% if not forloop.last %}
+  {{ p.geojson|safe }},
+  {% else %}
+  {{ p.geojson|safe }}
+  {% endif %}
+  {% endfor %}]
+};
+
+var map_id = 'texastribune.ibpc7iio';
+
+var map = L.mapbox.map('map_{{ day.pk }}', map_id, {
+  tileLayer: {
+    detectRetina: true
+  }
+});
+
+map.scrollWheelZoom.disable();
+
+var data_layer = L.geoJson(pings_{{ day.pk }}).addTo(map);
+
+map.fitBounds(data_layer.getBounds());
+
+})();
+
+</script>
+{% endblock %}
 {% endif %}

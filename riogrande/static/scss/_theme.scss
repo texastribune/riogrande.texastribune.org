@@ -4,6 +4,7 @@ body {
 }
 
 a {
+  color: $linkColor;
   text-decoration: none;
 
   &:hover {
@@ -23,6 +24,17 @@ hr {
   margin-bottom: 1em;
 }
 
+hr.yellow {
+  border: 0px none;
+  height: 1px;
+  background-color: rgb(255, 194, 0);
+  margin-bottom: 1em;
+}
+
+hr.divider {
+  margin-top: 2em;
+}
+
 .map {
   width: 100%;
   height: 250px;
@@ -32,13 +44,236 @@ hr {
   width: 80%;
   margin: 0 auto;
 
-  .content-day-header {
+  @include media($desktop) {
+    width: 100%;
+  }
+
+  .content-glossary {
+    font-family: $helvetica;
+    background-color: rgb(245, 245, 245);
+    padding: .625em;
+
+    @include media($desktop) {
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .glossary-header {
+      color: rgb(34, 34, 34);
+      font-size: .5em;
+
+      header {
+        h1 {
+          margin: 0;
+          padding: 0;
+        }
+      }
+    }
+
+    .glossary-about {
+      p {
+        font-size: .875em;
+        line-height: 1.4em;
+      }
+    }
+
+    .glossary-terms {
+      font-size: .75em;
+      line-height: 1.4em;
+      dl {
+        dt, dd {
+          margin: 0;
+          padding: 0;
+        }
+
+        dt {
+          font-weight: 600;
+          margin-bottom: .25em;
+        }
+
+        dd {
+          font-weight: 300;
+          margin-bottom: 1em;
+        }
+      }
+    }
+  }
+
+  .share-row {
+    border-top: 1px solid rgb(119, 119, 119);
+    margin-bottom: .5em;
+    @include row();
+
+    @include media($desktop) {
+      border-bottom: 1px solid rgb(119, 119, 119);
+    }
+
+    div {
+      border-bottom: 1px solid rgb(119, 119, 119);
+      color: rgb(119, 119, 119);
+      font-family: $helvetica;
+      font-size: .8em;
+      padding: .5em 0;
+      text-align: center;
+
+      @include media($desktop) {
+        border-bottom: none;
+        border-right: 1px solid rgb(119, 119, 119);
+        padding: .25em 0;
+
+        @include span-columns(4 of 12);
+      }
+
+      &:last-child {
+        border-right: none;
+      }
+
+      &:hover {
+        color: rgb(17, 17, 17);
+      }
+
+      a {
+        color: rgb(119, 119, 119);
+
+        &:hover {
+          color: rgb(17, 17, 17);
+        }
+      }
+    }
+  }
+
+  .content-contributors {
+    @include media($desktop) {
+      margin: 0 auto 1em auto;
+      width: 60%;
+    }
+
+    .contributor {
+      margin: 0 0 1em 0;
+
+      .contributor-name {
+        font-family: $georgia;
+        font-weight: 800;
+        margin: 0 0 .25em 0;
+      }
+
+      .contributor-credit {
+        font-family: $helvetica;
+        font-size: 0.875em;
+      }
+    }
+  }
+
+  .story-header-tease {
+    font-size: .875em;
+    font-weight: 800;
+    margin: 0 0 .375em 0;
+    text-transform: uppercase;
+  }
+
+  .story-image-tease {
+    img {
+      width: 100%;
+    }
+  }
+
+  .story-pub-tease {
     header {
-      font-family: $subHeaderFont;
-      color: $captionGray;
+      h2 {
+        font-family: $georgia;
+        font-size: 1.3em;
+        font-weight: 400;
+        margin: 0.5em 0 0 0;
+
+        @include media($desktop) {
+          margin: 0;
+        }
+
+        a {
+          color: inherit;
+          text-decoration: none;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+
+      p {
+        font-size: .75em;
+        margin: 1em 0 0 0;
+
+        a {
+          font-weight: 800;
+        }
+      }
+    }
+  }
+
+  .story-summary-tease {
+    font-family: $georgia;
+    font-size: 1em;
+    line-height: 1.4;
+
+    @include media($desktop) {
+      font-size: .875em;
+    }
+
+    p {
+      @include media($desktop) {
+        margin: 0;
+      }
+    }
+  }
+
+  .story-summary-read-more {
+    font-family: $helvetica;
+    font-size: .875em;
+    font-weight: 800;
+    text-transform: uppercase;
+  }
+
+  .content-normal-header {
+    margin: 0 0 1em 0;
+
+    @include media($desktop) {
+      margin-left: auto;
+      margin-right: auto;
+      width: 80%;
+    }
+
+    header {
+      font-family: $helvetica;
+      color: $offoffblack;
 
       h2 {
-        font-size: 1.75em;
+        font-size: 1.5em;
+        margin: 0 0 0.25em 0;
+
+        @include media($desktop) {
+          font-size: 2em;
+        }
+      }
+    }
+  }
+
+  .content-day-header {
+    @include media($desktop) {
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    header {
+      font-family: $helvetica;
+      color: $offoffblack;
+
+      h2 {
+        font-size: 1.5em;
+        margin: 0 0 0.25em 0;
+
+        @include media($desktop) {
+          font-size: 2em;
+        }
       }
     }
   }
@@ -46,13 +281,24 @@ hr {
   .content-measurements {
     font-family: $textFont;
     font-size: .875em;
-    @include row();
+    width: 60%;
+    margin: 0 auto;
 
     .measurement {
-      margin-bottom: 0.5em;
+      margin-bottom: 1.5em;
       text-align: center;
-      @include span-columns(6 of 12);
-      @include omega(2n);
+
+      .measurement-amount {
+        font-family: 'league-gothic', $helvetica;
+        font-size: 2.5em;
+        margin-bottom: .125em;
+      }
+
+      .measurement-name {
+        font-family: $helvetica;
+        font-weight: 400;
+        font-size: 1em;
+      }
 
       dt, dd {
         margin: 0;
@@ -67,25 +313,55 @@ hr {
   }
 
   .content-header {
+    @include media($desktop) {
+      margin: 0 auto;
+      width: 100%;
+    }
+
     header {
-      font-family: $subHeaderFont;
+      font-family: $georgia;
       font-size: 1em;
 
       h3 {
-        font-size: 1.5em;
-        font-weight: 500;
-        margin: 0 0 0.5em 0;
+        font-size: 1.3em;
+        font-weight: 400;
+        margin: 0 0 .5em 0;
         padding: 0;
+      }
+
+      h4 {
+        font-family: $helvetica;
+        font-size: 1em;
+        font-weight: 800;
+        margin: 0 0 .75em 0;
+        padding: 0;
+        text-transform: uppercase;
       }
 
       p {
         color: $captionGray;
+        font-family: $helvetica;
         font-size: .875em;
+
+        a {
+          font-weight: 800;
+        }
       }
     }
   }
 
+  .content-sub-header {
+    @include media($desktop) {
+      width: 60%;
+    }
+  }
+
   .content-prose {
+    @include media($desktop) {
+      margin: 0 auto 1em auto;
+      width: 60%;
+    }
+
     p {
       font-family: $textFont;
       font-size: 1em;
@@ -94,16 +370,55 @@ hr {
     }
 
     blockquote {
-      border-left: 2px solid $mainColor;
+      border-top: 1px solid rgb(255, 194, 0);
+      border-bottom: 1px solid rgb(255, 194, 0);
+      padding: 1em 0;
+      margin: 0;
+
+      p {
+        font-size: 1.2em;
+        font-style: italic;
+        font-weight: 800;
+        margin: 0;
+        padding: 0;
+
+        @include media($desktop) {
+          font-size: 1.5em;
+        }
+      }
+    }
+
+    .subhead {
+      font-family: $helvetica;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .donor-list {
+      color: rgb(136, 136, 136);
+      font-family: $helvetica;
       font-size: .875em;
-      font-style: italic;
-      margin: 0 0 0 1em;
-      padding: 0 0 0 1em;
+      font-weight: 500;
+
+      .donor {
+        border-right: 1px solid rgb(136, 136, 136);
+        margin: 0;
+        padding: 0 .25em 0 0;
+
+        &:last-child {
+          border-right: none;
+        }
+      }
     }
   }
 
   .content-photo {
-    margin-bottom: 1em;
+    margin-bottom: .5em;
+
+    @include media($desktop) {
+      margin: 0 auto 1em auto;
+      width: 100%;
+    }
 
     img {
       width: 100%;
@@ -111,97 +426,253 @@ hr {
 
     .content-photo-caption {
       color: $captionGray;
-      font-family: $textFont;
+      font-family: $sansTextFont;
       font-size: .75em;
-      font-weight: 300;
+      font-weight: 400;
       line-height: 1.4;
       margin-right: .3125em;
     }
+  }
 
-    .content-photo-credit {
-      color: $creditGray;
-      font-style: italic;
+  .content-gallery-photo {
+    margin: 0 auto 1em auto;
+    @include media($desktop) {
+      width: 60%;
+    }
+
+    img {
+      width: 100%;
+    }
+
+    .content-photo-caption {
+      color: $captionGray;
+      font-family: $sansTextFont;
+      font-size: .75em;
+      font-weight: 400;
+      line-height: 1.4;
+      margin-right: .3125em;
     }
   }
 }
 
 .header {
-  height: 3em;
-  line-height: 3em;
-  margin-bottom: 1em;
-  background-color: rgb(34, 34, 34);
+  height: 2.75em;
+  line-height: 2.75em;
+  background-color: rgb(17, 17, 17);
   text-align: center;
 
   img {
     height: 1.375em;
     vertical-align: middle;
   }
-}
 
-.content-container {
-  .app-header {
-    font-family: $subHeaderFont;
-    width: 80%;
-    margin: 0 auto;
-
-    h1 {
-      font-size: 2em;
-      font-weight: 500;
-      line-height: 1;
-    }
-
-    a {
-      color: rgb(34, 34, 34);
+  .header-image-container {
+    img {
+      height: auto;
+      width: 100%;
     }
   }
 }
 
-.footer {
-  background-color: rgb(34, 34, 34);
-  color: rgb(255, 255, 255);
-  font-size: 0.75em;
-  margin-top: 1em;
-  border-top: 4px solid $mainColor;
+.app-header {
+  color: $offwhite;
+  font-family: $boldHeaderFont;
+  margin: 0 auto 1em auto;
+  height: 225px;
+  position: relative;
+  background-image: url('/static/images/rio-header-large.jpg');
+  background-size: cover;
+  background-position: 0% 70%;
 
-  .logo {
-    width: 100px;
-    margin-top: 1em;
+  .head {
+    position: absolute;
+    bottom: 4%;
+    text-align: center;
+    width: 100%;
 
     @include media($desktop) {
-      width: 150px;
-      margin-top: 3em;
+      bottom: 18%;
     }
+
+    h1 {
+      font-family: $georgia;
+      font-size: 2em;
+      font-weight: 900;
+      line-height: 1.2;
+      text-shadow: rgb(0, 0, 0) 3px 3px 0px;
+
+      @include media($desktop) {
+        font-size: 3.5em;
+      }
+    }
+
+    a {
+      color: $offwhite;
+    }
+
+    ul {
+      font-family: $helvetica;
+      font-size: 0.75em;
+      font-weight: 700;
+      text-transform: uppercase;
+
+      li {
+        background-color: rgba(10, 10, 10, 0.4);
+        border: 1px solid rgb(255, 255, 255);
+        display: inline-block;
+        letter-spacing: .0625em;
+        margin: 0 0 .3125em 0;
+        padding: .5em 0;
+        width: 320px;
+
+        &:hover {
+          background-color: $linkColor;
+          border: 1px solid $linkColor;
+        }
+
+        @include media($desktop) {
+          margin: 0 .5em 0 .5em;
+        }
+      }
+    }
+  }
+}
+
+.tribune-footer {
+  background-color: rgb(17, 17, 17);
+  color: $offwhite;
+  font-size: .875em;
+  margin-top: 2em;
+  padding: .25em 0;
+  text-align: center;
+
+  @include media($desktop) {
+    display: block;
+    font-size: .75em;
+    padding: 1em 0;
+    text-align: none;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
   }
 
   .app-container {
-    text-align: center;
+    .first-nav {
+      color: rgb(170, 170, 170);
+      @include media($desktop) {
+        float: left;
+      }
 
-    @include media($desktop) {
-      div {
-        text-align: left;
-        @include span-columns(4 of 12);
+      li {
+        @include media($desktop) {
+          border: none;
+          padding: 0;
+        }
+      }
+
+      a {
+        color: rgb(170, 170, 170);
+      }
+    }
+
+    .last-nav {
+      @include media($desktop) {
+        float: right;
+      }
+
+      li {
+
+        a {
+          color: $offwhite;
+        }
+
+        &:last-child {
+          margin-bottom: 0;
+
+          a {
+            color: $linkColor;
+            font-weight: 800;
+          }
+        }
+      }
+    }
+
+    li {
+      margin: .75em 0;
+
+      @include media($desktop) {
+        border-right: 1px solid $offwhite;
+        display: inline;
+        float: left;
+        margin: 0;
+        padding: 0 .5em;
+      }
+
+      &:last-child {
+        @include media($desktop) {
+          border: none;
+          padding: 0 0 0 .5em;
+        }
       }
     }
   }
+}
 
-  ul {
-    li {
-      margin-bottom: 0.5em;
+.archive-header {
+  margin: 0 0 1em 0;
+}
 
-      &:first-child {
-        color: #FFC200;
-        font-weight: bold;
-        margin-bottom: 1em;
+.archive-list {
+  @include media($desktop) {
+    margin: 0 auto;
+    width: 80%;
+  }
+
+  img {
+    width: 1.25em;
+  }
+  .archive-row {
+    margin: 0 0 1em 0;
+
+    .title {
+      font-weight: 800;
+    }
+
+    .archive-row-date {
+      font-size: 1.5em;
+      margin: 0 0 0.5em 0;
+
+      a {
+        font-weight: 800;
+
+        &:hover {
+          text-decoration: underline;
+        }
       }
     }
 
-    a {
-      color: rgb(221, 221, 221);
-      text-decoration: none;
+    .archive-row-content-cells {
+      margin: 1em 0 0 0;
+      @include row();
 
-      &:hover {
-        color: rgb(255, 255, 255);
-        text-decoration: underline;
+      .content-cell {
+        margin: 0 0 .5em 0;
+        text-align: center;
+        @include span-columns(6 of 12);
+        @include omega(2n);
+
+        @include media($desktop) {
+          margin: 0;
+          @include omega-reset(2n);
+          @include span-columns(3 of 12);
+          @include omega(4n);
+        }
+
+        .content-cell-header {
+          font-size: .875em;
+          font-weight: 400;
+          margin: 0 0 .25em 0;
+        }
       }
     }
   }

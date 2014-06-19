@@ -18,6 +18,20 @@ class PublishedObjectsManager(models.Manager):
             )
         )
 
+
+class PublishedObjectsStoryManager(models.Manager):
+    def get_query_set(self):
+        return (
+            super(PublishedObjectsStoryManager, self)
+            .get_query_set()
+            .filter(
+                pub_status=PublicationStatus.Published,
+                # add 1 second of slop for safety
+                day_pub_date__date__lte=now() + timedelta(seconds=1)
+            )
+        )
+
+
 class PublishedObjectsGeoManager(models.GeoManager):
     def get_query_set(self):
         return (

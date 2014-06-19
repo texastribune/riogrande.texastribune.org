@@ -1,5 +1,24 @@
 {% extends "base.html" %}
 
+{% block opengraph %}
+{% if day.post_for %}
+<meta property="og:description" content="{{ day.post_for.text|striptags|truncatewords:100 }}">
+{% else %}
+<meta property="og:description" content="{{ day.date|date }} Blog Updates">
+{% endif %}
+{% if day.post_for %}
+<meta property="og:title" content="{{ day.post_for.headline }} - {{ day.date|date }}">
+{% else %}
+<meta property="og:title" content="Disappearing Rio Grande - {{ day.date|date }}">
+{% endif %}
+<meta property="og:url" content="{{ day.get_share_url }}">
+{% if day.post_for %}
+<meta property="og:image" content="{{ day.post_for.lede_art.image.path }}">
+{% elif day.gallery_for %}
+<meta property="og:image" content="{{ day.gallery_for.photos.all.0.image.path }}">
+{% endif %}
+{% endblock %}
+
 {% block content %}
 
 {% include 'includes/day.html' with day=day %}

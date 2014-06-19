@@ -1,13 +1,14 @@
 import datetime
 
 from django.shortcuts import get_object_or_404
-from django.views.generic import TemplateView
+from django.views.generic import DateDetailView, ListView, TemplateView
 
 from days.models import Day
 from measurements.models import Measurement
 from photos.models import Gallery
 from pings.models import Ping
 from posts.models import Post
+from stories.models import Story
 
 
 class LandingView(TemplateView):
@@ -17,6 +18,7 @@ class LandingView(TemplateView):
         context = super(LandingView, self).get_context_data(**kwargs)
 
         context['most_recent_days'] = Day.objects.all()[:3]
+        context['most_recent_story'] = Story.published.latest('pub_date')
 
         return context
 
@@ -33,5 +35,23 @@ class DayView(TemplateView):
             context['day']))
         date = datetime.datetime.strptime(date_string, date_format).date()
         context['day'] = get_object_or_404(Day, date__contains=date)
+        context['most_recent_story'] = Story.published.latest('pub_date')
 
         return context
+
+
+class StoryDetail(DateDetailView):
+    date_field = 'pub_date'
+    model = Story
+    month_format = '%m'
+    template_name = 'story.html'
+
+
+class AboutView(TemplateView):
+    template_name = 'about.html'
+
+
+class ArchiveView(ListView):
+    model = Day
+    template_name = 'archive.html'
+

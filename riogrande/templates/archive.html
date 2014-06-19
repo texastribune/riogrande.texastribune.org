@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+
+<div class="content-block">
+  <div class="content-normal-header">
+    <header>
+      <h2>The Journey</h2>
+    </header>
+  </div>
+
+  <div class="archive-list">
+  {% for day in object_list %}
+    <hr>
+
+    <div class="archive-row">
+      <div class="archive-row-date"><a href="{% url 'day' day.date.year day.date.month day.date.day %}">{{ day.date|date }}</a></div>
+      {% if day.story_for %}
+        <div class="archive-row-story-title"><span class="title">Story</span>: <a href="{{ day.story_for.get_absolute_url }}">{{ day.story_for.headline }}</a></div>
+      {% endif %}
+      {% if day.post_for %}
+        <div class="archive-row-post-title"><span class="title">Post</span>: <a href="{% url 'day' day.date.year day.date.month day.date.day %}">{{ day.post_for.headline }}</a></div>
+      {% endif %}
+        <div class="archive-row-content-cells">
+          <div class="content-cell">
+            <div class="content-cell-header">Post</div>
+            <div class="content-cell-icon">
+              {% if day.post_for %}
+                <img src="{% static 'images/check.png' %}">
+              {% else %}
+                <img src="{% static 'images/x.png' %}">
+              {% endif %}
+            </div>
+          </div>
+          <div class="content-cell">
+            <div class="content-cell-header">Photo Gallery</div>
+            <div class="content-cell-icon">
+              {% if day.gallery_for %}
+                <img src="{% static 'images/check.png' %}">
+              {% else %}
+                <img src="{% static 'images/x.png' %}">
+              {% endif %}
+            </div>
+          </div>
+          <div class="content-cell">
+            <div class="content-cell-header">Measurements</div>
+            <div class="content-cell-icon">
+              {% if day.measurement_for %}
+                <img src="{% static 'images/check.png' %}">
+              {% else %}
+                <img src="{% static 'images/x.png' %}">
+              {% endif %}
+            </div>
+          </div>
+          <div class="content-cell">
+            <div class="content-cell-header">Pings</div>
+            <div class="content-cell-icon">
+              {% if day.pings.all %}
+                <img src="{% static 'images/check.png' %}">
+              {% else %}
+                <img src="{% static 'images/x.png' %}">
+              {% endif %}
+            </div>
+          </div>
+        </div>
+    </div>
+  {% endfor %}
+  </div>
+</div>
+
+{% endblock %}

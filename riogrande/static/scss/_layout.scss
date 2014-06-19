@@ -1,3 +1,51 @@
 .app-container {
   @include outer-container;
 }
+
+.row {
+  @include row();
+}
+
+.story-image-tease {
+  @include media($desktop) {
+    @include span-columns(3 of 12);
+  }
+}
+
+.story-pub-tease {
+  @include media($desktop) {
+    @include span-columns(3 of 12);
+  }
+}
+
+.story-summary-tease {
+  @include media($desktop) {
+    @include span-columns(6 of 12);
+  }
+}
+
+.content-measurements {
+  @include row();
+
+  .measurement {
+    @include span-columns(6 of 12);
+    @include omega(2n);
+
+    @include media($desktop) {
+      @include omega-reset(2n);
+      @include span-columns(3 of 12);
+      @include omega(4n);
+    }
+  }
+}
+
+.content-block {
+  .content-contributors {
+    .contributor {
+      @include media($desktop) {
+        @include span-columns(6 of 12);
+        @include omega(2n);
+      }
+    }
+  }
+}

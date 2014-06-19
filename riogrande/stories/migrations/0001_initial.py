@@ -11,7 +11,8 @@ class Migration(SchemaMigration):
         # Adding model 'Story'
         db.create_table(u'stories_story', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('pub_date', self.gf('django.db.models.fields.related.OneToOneField')(related_name='story_for', unique=True, to=orm['days.Day'])),
+            ('pub_date', self.gf('django.db.models.fields.DateTimeField')()),
+            ('day_pub_date', self.gf('django.db.models.fields.related.OneToOneField')(related_name='story_for', unique=True, null=True, to=orm['days.Day'])),
             ('pub_status', self.gf('django.db.models.fields.CharField')(default='D', max_length=1)),
             ('headline', self.gf('django.db.models.fields.CharField')(max_length=255)),
             ('slug', self.gf('django.db.models.fields.SlugField')(max_length=100)),
@@ -50,10 +51,11 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'Story'},
             'author': ('django.db.models.fields.CharField', [], {'default': "u''", 'max_length': '150'}),
             'author_email': ('django.db.models.fields.EmailField', [], {'max_length': '100'}),
+            'day_pub_date': ('django.db.models.fields.related.OneToOneField', [], {'related_name': "'story_for'", 'unique': 'True', 'null': 'True', 'to': u"orm['days.Day']"}),
             'headline': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'lede_art': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['photos.Photo']"}),
-            'pub_date': ('django.db.models.fields.related.OneToOneField', [], {'related_name': "'story_for'", 'unique': 'True', 'to': u"orm['days.Day']"}),
+            'pub_date': ('django.db.models.fields.DateTimeField', [], {}),
             'pub_status': ('django.db.models.fields.CharField', [], {'default': "'D'", 'max_length': '1'}),
             'slug': ('django.db.models.fields.SlugField', [], {'max_length': '100'}),
             'summary': ('django.db.models.fields.TextField', [], {}),

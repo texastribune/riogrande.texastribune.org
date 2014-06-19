@@ -11,7 +11,7 @@ class Migration(SchemaMigration):
         # Adding model 'Day'
         db.create_table(u'days_day', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('date', self.gf('django.db.models.fields.DateTimeField')()),
+            ('date', self.gf('django.db.models.fields.DateField')()),
         ))
         db.send_create_signal(u'days', ['Day'])
 
@@ -23,8 +23,8 @@ class Migration(SchemaMigration):
 
     models = {
         u'days.day': {
-            'Meta': {'object_name': 'Day'},
-            'date': ('django.db.models.fields.DateTimeField', [], {}),
+            'Meta': {'ordering': "('-date',)", 'object_name': 'Day'},
+            'date': ('django.db.models.fields.DateField', [], {}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'})
         }
     }
