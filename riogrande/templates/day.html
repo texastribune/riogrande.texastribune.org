@@ -13,9 +13,9 @@
 {% endif %}
 <meta property="og:url" content="{{ day.get_share_url }}">
 {% if day.post_for %}
-<meta property="og:image" content="{{ day.post_for.lede_art.image.path }}">
+<meta property="og:image" content="{{ day.post_for.lede_art.image.url }}">
 {% elif day.gallery_for %}
-<meta property="og:image" content="{{ day.gallery_for.photos.all.0.image.path }}">
+<meta property="og:image" content="{{ day.gallery_for.photos.all.0.image.url }}">
 {% endif %}
 {% endblock %}
 
