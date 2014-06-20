@@ -4,7 +4,7 @@
   <meta property="og:description" content="{{ object.summary|striptags|truncatewords:100 }}">
   <meta property="og:title" content="{{ object.headline }}">
   <meta property="og:url" content="{{ object.get_share_url }}">
-  <meta property="og:image" content="{{ object.lede_art.image.path }}">
+  <meta property="og:image" content="{{ object.lede_art.image.url }}">
 {% endblock %}
 
 {% block content %}
