@@ -42,7 +42,7 @@ hr.divider {
 
 .content-block {
   width: 80%;
-  margin: 0 auto;
+  margin: 0 auto .5em auto;
 
   @include media($desktop) {
     width: 100%;
@@ -100,17 +100,17 @@ hr.divider {
   }
 
   .share-row {
-    border-top: 1px solid rgb(119, 119, 119);
+    border-top: 1px solid rgb(204, 204, 204);
     margin-bottom: .5em;
     @include row();
 
     @include media($desktop) {
-      border-bottom: 1px solid rgb(119, 119, 119);
+      border-bottom: 1px solid rgb(204, 204, 204);
     }
 
     div {
-      border-bottom: 1px solid rgb(119, 119, 119);
-      color: rgb(119, 119, 119);
+      border-bottom: 1px solid rgb(204, 204, 204);
+      color: rgb(204, 204, 204);
       font-family: $helvetica;
       font-size: .8em;
       padding: .5em 0;
@@ -118,7 +118,7 @@ hr.divider {
 
       @include media($desktop) {
         border-bottom: none;
-        border-right: 1px solid rgb(119, 119, 119);
+        border-right: 1px solid rgb(204, 204, 204);
         padding: .25em 0;
 
         @include span-columns(4 of 12);
@@ -269,7 +269,7 @@ hr.divider {
 
       h2 {
         font-size: 1.5em;
-        margin: 0 0 0.25em 0;
+        margin: 0;
 
         @include media($desktop) {
           font-size: 2em;
@@ -325,7 +325,7 @@ hr.divider {
       h3 {
         font-size: 1.3em;
         font-weight: 400;
-        margin: 0 0 .5em 0;
+        margin: 0;
         padding: 0;
       }
 
@@ -398,7 +398,8 @@ hr.divider {
       color: rgb(136, 136, 136);
       font-family: $helvetica;
       font-size: .875em;
-      font-weight: 500;
+      font-weight: 400;
+      letter-spacing: .03em;
 
       .donor {
         border-right: 1px solid rgb(136, 136, 136);
@@ -522,7 +523,7 @@ hr.divider {
         display: inline-block;
         letter-spacing: .0625em;
         margin: 0 0 .3125em 0;
-        padding: .5em 0;
+        padding: 1em 0;
         width: 320px;
 
         &:hover {
@@ -649,6 +650,14 @@ hr.divider {
           text-decoration: underline;
         }
       }
+    }
+
+    .archive-row-story-title {
+      margin: 0 0 .25em 0;
+    }
+
+    .archive-row-post-title {
+      margin: 0 0 .25em 0;
     }
 
     .archive-row-content-cells {

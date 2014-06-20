@@ -8,34 +8,7 @@
       <h2><a href="{% url 'day' day.date.year day.date.month day.date.day %}">{{ day.date|date }}</a></h2>
     </header>
   </div>
-  {% if not day.post_for %}
-    {% include 'includes/share.html' with object=day %}
-  {% endif %}
 </div>
-
-{% if day.story_for %}
-  {% if day.story_for.pub_status == 'P' %}
-    <div class="content-block row">
-      <div class="story-header-tease">Story</div>
-      <div class="story-image-tease">
-      <a href="{{ day.story_for.get_absolute_url }}"><img src="{{ day.story_for.lede_art.image.url }}"></a>
-      </div>
-      <div class="story-pub-tease">
-        <header>
-          <h2><a href="{{ day.story_for.get_absolute_url }}">{{ day.story_for.headline }}</a></h2>
-        <p>by <a href="mailto:{{ day.story_for.author_email }}">{{ day.story_for.author }}</a></p>
-        </header>
-      </div>
-      <div class="story-summary-tease">
-        {{ day.story_for.summary|safe }}
-
-        <span class="story-summary-read-more"><a href="{{ day.story_for.get_absolute_url }}">Read more</a></span>
-      </div>
-    </div>
-
-    <hr class="yellow">
-  {% endif %}
-{% endif %}
 
 {% if day.post_for %}
   {% if day.post_for.pub_status == 'P' %}
@@ -173,7 +146,7 @@
           </dl>
         </div>
       </div>
-    </di  v>
+    </div>
 
   {% endif %}
 {% endif %}
@@ -233,3 +206,9 @@ map.fitBounds(data_layer.getBounds());
 </script>
 {% endblock %}
 {% endif %}
+
+<div class="content-block">
+{% if not day.post_for %}
+  {% include 'includes/share.html' with object=day %}
+{% endif %}
+</div>
