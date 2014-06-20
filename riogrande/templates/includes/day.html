@@ -199,7 +199,9 @@ map.scrollWheelZoom.disable();
 
 var data_layer = L.geoJson(pings_{{ day.pk }}).addTo(map);
 
-map.fitBounds(data_layer.getBounds());
+map.fitBounds(data_layer.getBounds(), {
+  maxZoom: 10
+});
 
 })();
 
