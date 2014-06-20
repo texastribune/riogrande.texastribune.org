@@ -24,6 +24,7 @@ class Photo(models.Model):
                                   choices=PublicationStatus.choices,
                                   default=PublicationStatus.Draft)
 
+    objects = models.Manager()
     published = PublishedObjectsPhotoManager()
 
     class Meta:
@@ -57,6 +58,7 @@ class Gallery(models.Model):
         null=True,
         blank=True)
 
+    objects = models.Manager()
     published = PublishedObjectsManager()
 
     class Meta:
