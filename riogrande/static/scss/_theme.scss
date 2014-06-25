@@ -78,7 +78,7 @@ hr.divider {
     }
 
     .glossary-terms {
-      font-size: .75em;
+      font-size: .85em;
       line-height: 1.4em;
       dl {
         dt, dd {
@@ -523,7 +523,7 @@ hr.divider {
         display: inline-block;
         letter-spacing: .0625em;
         margin: 0 0 .3125em 0;
-        padding: 1em 0;
+        padding: .65em 0;
         width: 320px;
 
         &:hover {
@@ -533,6 +533,7 @@ hr.divider {
 
         @include media($desktop) {
           margin: 0 .5em 0 .5em;
+          padding: 1em 0;
         }
       }
     }

@@ -56,7 +56,7 @@
         <div class="content-photo-caption">
           <span>{{ photo.caption|safe }}</span>
           {% if photo.credit %}
-          <span class="content-photo-credit">Photo by: {{ day.post_for.lede_art.credit }}</span>
+          <span class="content-photo-credit">Photo by: {{ photo.credit }}</span>
           {% endif %}
         </div>
         {% endif %}
@@ -79,23 +79,23 @@
       <div class="content-measurements">
           <div class="measurement">
             <div class="measurement-amount">{{ day.measurement_for.air_temperature }}</div>
-            <div class="measurement-name">Air temperature</div>
+            <div class="measurement-name">Air temperature (&deg;C)</div>
           </div>
           <div class="measurement">
             <div class="measurement-amount">{{ day.measurement_for.conductivity }}</div>
-            <div class="measurement-name">Conductivity</div>
+            <div class="measurement-name">Conductivity (&micro;S/cm)</div>
           </div>
           <div class="measurement">
             <div class="measurement-amount">{{ day.measurement_for.depth }}</div>
-            <div class="measurement-name">Depth of Measurement</div>
+            <div class="measurement-name">Depth of Measurement (meters)</div>
           </div>
           <div class="measurement">
             <div class="measurement-amount">{{ day.measurement_for.dissolved_oxygen }}</div>
-            <div class="measurement-name">Dissolved oxygen</div>
+            <div class="measurement-name">Dissolved oxygen (mg/L)</div>
           </div>
           <div class="measurement">
             <div class="measurement-amount">{{ day.measurement_for.e_coli }}</div>
-            <div class="measurement-name">E. coli</div>
+            <div class="measurement-name">E. coli colonies per 100 ml</div>
           </div>
           <div class="measurement">
             <div class="measurement-amount">{{ day.measurement_for.ph_level }}</div>
@@ -103,11 +103,11 @@
           </div>
           <div class="measurement">
             <div class="measurement-amount">{{ day.measurement_for.secchi_disk_transparency }}</div>
-            <div class="measurement-name">Secchi disk transparency</div>
+            <div class="measurement-name">Secchi disk transparency (meters)</div>
           </div>
           <div class="measurement">
             <div class="measurement-amount">{{ day.measurement_for.water_temperature }}</div>
-            <div class="measurement-name">Water temperature</div>
+            <div class="measurement-name">Water temperature (&deg;C)</div>
           </div>
       </div>
     </div>
