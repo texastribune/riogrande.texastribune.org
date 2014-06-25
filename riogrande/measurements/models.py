@@ -51,4 +51,4 @@ class Measurement(models.Model):
     published = PublishedObjectsManager()
 
     def __unicode__(self):
-        return localtime(self.pub_date.date).strftime('%B %d, %Y at %I:%M %p')
+        return self.pub_date.date.isoformat()
