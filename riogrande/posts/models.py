@@ -7,6 +7,7 @@ from riogrande.managers import PublishedObjectsManager
 
 from days.models import Day
 
+
 class Post(models.Model):
 
     # publication fields
