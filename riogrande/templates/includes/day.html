@@ -163,11 +163,37 @@
 
 <div class="map" id="map_{{ day.pk }}"></div>
 
+<div class="ping-table">
+
+<table>
+  <thead>
+    <tr>
+      <th>Check-In #</th>
+      <th>Time of Check-In</th>
+      <th>Latitude</th>
+      <th>Longitude</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for p in day.pings.geojson %}
+      <tr>
+        <td>#{{ forloop.counter }}</td>
+        <td>{{ p.pub_time }}</td>
+        <td>{{ p.location.y }}</td>
+        <td>{{ p.location.x }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+</div>
+
 <div class="content-block">
   <div class="content-glossary">
     <div class="glossary-about">
       <p>Each point represents a check-in made by Colin. Use this map to see where Colin and Erich traveled each day.</p>
     </div>
+    
   </div>
 </div>
 
@@ -187,7 +213,9 @@ var pings_{{ day.pk }} = {
   {% endfor %}]
 };
 
-var map_id = 'texastribune.ibpc7iio';
+var map_id = 'texastribune.ili2i87h';
+
+// var map_id = 'texastribune.ibpc7iio';
 
 var map = L.mapbox.map('map_{{ day.pk }}', map_id, {
   tileLayer: {
@@ -197,13 +225,74 @@ var map = L.mapbox.map('map_{{ day.pk }}', map_id, {
 
 map.scrollWheelZoom.disable();
 
-var data_layer = L.geoJson(pings_{{ day.pk }}).addTo(map);
+
+//set the styles for the first and last markers
+var firstLastStyles = L.mapbox.marker.icon ({
+      'marker-size': 'medium',
+      'marker-symbol': 'circle',
+      'marker-color': '#008990'
+      });
+
+//set the styles of other markers      
+var markerOptions = {
+  radius: 7,
+  fillColor: "#fff",
+  color: "#008990",
+  weight: 2,
+  opacity: 1,
+  fillOpacity: .9
+};
+
+var firstPing = pings_{{ day.pk }}.features[0];
+
+// create first marker
+var firstMarker = L.geoJson(firstPing, {
+  pointToLayer: function(feature, latlng) {
+    return L.marker(latlng, {
+      icon: firstLastStyles
+    })
+  }
+}).addTo(map);
+
+var numberPings = pings_{{ day.pk }}.features.length;
+
+
+  //code runs if there is more than one entry
+  if (numberPings > 1) {
+
+    //add an ending Marker
+    var lastPing = pings_{{ day.pk }}.features[numberPings-1];
+    // create last marker
+    var lastMarker = L.geoJson(lastPing, {
+      pointToLayer: function(feature, latlng) {
+        return L.marker(latlng, {
+          icon: firstLastStyles
+        })
+      }
+    });
+
+    //create markers between the first and the last
+    for (var i = 1; i < numberPings-1; i++) {
+      var middleMarkers = L.geoJson(pings_{{ day.pk }}.features[i], {
+        pointToLayer: function(feature, latlng) {
+          return L.circleMarker(latlng, markerOptions);
+          }
+        }).addTo(map);
+
+      }
+
+    lastMarker.addTo(map);
+};
+
+var data_layer = L.geoJson(pings_{{ day.pk }});
 
 map.fitBounds(data_layer.getBounds(), {
-  maxZoom: 10
-});
+maxZoom: 10
+}); //end of mapping
 
 })();
+
+
 
 </script>
 {% endblock %}
