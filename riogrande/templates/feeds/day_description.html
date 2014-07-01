@@ -1,0 +1,3 @@
+{% if obj.post_for and obj.post_for.pub_status == 'P' %}
+{{ obj.post_for.text|truncatewords:150|safe }}
+{% endif %}
