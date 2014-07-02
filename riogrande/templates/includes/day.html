@@ -228,10 +228,10 @@ map.scrollWheelZoom.disable();
 
 //set the styles for the first and last markers
 var firstLastStyles = L.mapbox.marker.icon ({
-      'marker-size': 'medium',
-      'marker-symbol': 'circle',
-      'marker-color': '#008990'
-      });
+  'marker-size': 'medium',
+  'marker-symbol': 'circle',
+  'marker-color': '#008990'
+  });
 
 //set the styles of other markers      
 var markerOptions = {
@@ -260,6 +260,22 @@ var numberPings = pings_{{ day.pk }}.features.length;
   //code runs if there is more than one entry
   if (numberPings > 1) {
 
+    //add start text to firstMarker
+    var firstMarkerText = L.geoJson(firstPing, {
+      pointToLayer: function(feature, latlng) {
+        return L.marker(latlng, {
+              icon: L.divIcon({
+                // Specify a class name we can refer to in CSS.
+                className: 'map-icon-text',
+                // Define what HTML goes in each marker.
+                html: "START",
+                // Set a markers width and height.
+                iconSize: [50, 20]
+              })
+        })
+      }
+    }).addTo(map);
+
     //add an ending Marker
     var lastPing = pings_{{ day.pk }}.features[numberPings-1];
     // create last marker
@@ -270,6 +286,21 @@ var numberPings = pings_{{ day.pk }}.features.length;
         })
       }
     });
+
+    var lastMarkerText = L.geoJson(lastPing, {
+      pointToLayer: function(feature, latlng) {
+        return L.marker(latlng, {
+              icon: L.divIcon({
+                // Specify a class name we can refer to in CSS.
+                className: 'map-icon-text',
+                // Define what HTML goes in each marker.
+                html: "END",
+                // Set a markers width and height.
+                iconSize: [45, 20]
+              })
+        })
+      }
+    }).addTo(map);
 
     //create markers between the first and the last
     for (var i = 1; i < numberPings-1; i++) {
@@ -283,6 +314,17 @@ var numberPings = pings_{{ day.pk }}.features.length;
 
     lastMarker.addTo(map);
 };
+
+//hide start and end text on zoom levels
+map.on('zoomend', function() {
+    if (map.getZoom() < 8) {
+       map.removeLayer(firstMarkerText);
+       map.removeLayer(lastMarkerText);
+    } else {
+      map.addLayer(firstMarkerText);
+      map.addLayer(lastMarkerText);
+    }
+});
 
 var data_layer = L.geoJson(pings_{{ day.pk }});
 
