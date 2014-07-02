@@ -21,7 +21,6 @@ hr {
   background-color: $accentColor;
   border: 0px none;
   height: 1px;
-  margin-bottom: 1em;
 }
 
 hr.yellow {
@@ -36,8 +35,20 @@ hr.divider {
 }
 
 .map {
-  width: 100%;
   height: 250px;
+  margin: 0 0 .5em;
+  width: 100%;
+}
+
+.map-disclaimer {
+  background-color: rgb(245, 245, 245);
+  font-family: $helvetica;
+  padding: .625em;
+
+  p {
+    font-size: .875em;
+    line-height: 1.4em;
+  }
 }
 
 .content-block {
@@ -101,7 +112,7 @@ hr.divider {
 
   .share-row {
     border-top: 1px solid rgb(204, 204, 204);
-    margin-bottom: .5em;
+    margin-bottom: .75em;
     @include row();
 
     @include media($desktop) {
@@ -259,7 +270,7 @@ hr.divider {
 
   .content-day-header {
     @include media($desktop) {
-      margin: 0 auto;
+      margin: 4em auto 0;
       width: 100%;
     }
 
@@ -478,7 +489,7 @@ hr.divider {
 .app-header {
   color: $offwhite;
   font-family: $boldHeaderFont;
-  margin: 0 auto 1em auto;
+  margin: 0 auto 1em;
   height: 225px;
   position: relative;
   background-image: url('/static/images/rio-header-large.jpg');
@@ -486,8 +497,8 @@ hr.divider {
   background-position: 0% 70%;
 
   .head {
+    bottom: 0;
     position: absolute;
-    bottom: 4%;
     text-align: center;
     width: 100%;
 
@@ -500,10 +511,12 @@ hr.divider {
       font-size: 2em;
       font-weight: 900;
       line-height: 1.2;
-      text-shadow: rgb(0, 0, 0) 3px 3px 0px;
+      margin: 0;
+      text-shadow: rgb(0, 0, 0) 3px 3px 0;
 
       @include media($desktop) {
         font-size: 3.5em;
+        margin: 0 0 .5em;
       }
     }
 
@@ -513,18 +526,18 @@ hr.divider {
 
     ul {
       font-family: $helvetica;
-      font-size: 0.75em;
+      font-size: .75em;
       font-weight: 700;
       text-transform: uppercase;
 
       li {
-        background-color: rgba(10, 10, 10, 0.4);
+        background-color: rgba(10, 10, 10, .4);
         border: 1px solid rgb(255, 255, 255);
         display: inline-block;
         letter-spacing: .0625em;
-        margin: 0 0 .3125em 0;
-        padding: .65em 0;
-        width: 320px;
+        margin: 0 0 .3125em;
+        padding: .875em 0;
+        width: 80%;
 
         &:hover {
           background-color: $linkColor;
@@ -532,8 +545,9 @@ hr.divider {
         }
 
         @include media($desktop) {
-          margin: 0 .5em 0 .5em;
+          margin: 0 .5em;
           padding: 1em 0;
+          width: 320px;
         }
       }
     }
