@@ -1,7 +1,5 @@
 {% load geojson_tags %}
 
-<hr>
-
 <div class="content-block">
   <div class="content-day-header">
     <header>
@@ -9,6 +7,12 @@
     </header>
   </div>
 </div>
+
+{% if not day.post_for %}
+<div class="content-block">
+  {% include 'includes/share.html' with object=day %}
+</div>
+{% endif %}
 
 {% if day.post_for %}
   {% if day.post_for.pub_status == 'P' %}
@@ -116,7 +120,7 @@
       <div class="content-glossary">
         <div class="glossary-header">
           <header>
-            <h1><i class="fa fa-info-circle"></i> What is this?</h1>
+            <h1><i class="fa fa-info-circle"></i> What do these numbers mean?</h1>
           </header>
         </div>
         <div class="glossary-about">
@@ -162,15 +166,12 @@
   </div>
 </div>
 
+<div class="map-disclaimer">
+  <p>Each point represents a <a href="http://findmespot.com/en/index.php?cid=108#howitworks">check-in</a> made by Colin. Use this map to see where Colin and Erich traveled each day.</p>
+</div>
+
 <div class="map" id="map_{{ day.pk }}"></div>
 
-<div class="content-block">
-  <div class="content-glossary">
-    <div class="glossary-about">
-      <p>Each point represents a check-in made by Colin. Use this map to see where Colin and Erich traveled each day.</p>
-    </div>
-  </div>
-</div>
 
 {% block extra_script %}
 <script>
@@ -209,9 +210,3 @@ map.fitBounds(data_layer.getBounds(), {
 </script>
 {% endblock %}
 {% endif %}
-
-<div class="content-block">
-{% if not day.post_for %}
-  {% include 'includes/share.html' with object=day %}
-{% endif %}
-</div>
