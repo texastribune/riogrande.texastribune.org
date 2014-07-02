@@ -172,6 +172,28 @@
 
 <div class="map" id="map_{{ day.pk }}"></div>
 
+<div class="ping-table">
+<table>
+  <thead>
+    <tr>
+      <th>Check-In</th>
+      <th>Time of Check-In</th>
+      <th>Latitude</th>
+      <th>Longitude</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for p in day.pings.geojson %}
+      <tr>
+        <td data-title="Check-In">#{{ forloop.counter }}</td>
+        <td data-title="Time of Check-In">{{ p.pub_time }}</td>
+        <td data-title="Latitude">{{ p.location.y }}</td>
+        <td data-title="Longitude">{{ p.location.x }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
 
 {% block extra_script %}
 <script>
@@ -189,23 +211,133 @@ var pings_{{ day.pk }} = {
   {% endfor %}]
 };
 
-var map_id = 'texastribune.ibpc7iio';
+var map_id = 'texastribune.ili2i87h';
+
+// var map_id = 'texastribune.ibpc7iio';
 
 var map = L.mapbox.map('map_{{ day.pk }}', map_id, {
+  zoomControl: false,
   tileLayer: {
     detectRetina: true
   }
 });
 
+map.dragging.disable();
+map.touchZoom.disable();
+map.doubleClickZoom.disable();
 map.scrollWheelZoom.disable();
 
-var data_layer = L.geoJson(pings_{{ day.pk }}).addTo(map);
+if (map.tap) { map.tap.disable(); }
 
-map.fitBounds(data_layer.getBounds(), {
-  maxZoom: 10
+//set the styles for the first and last markers
+var firstLastStyles = L.mapbox.marker.icon ({
+  'marker-size': 'medium',
+  'marker-symbol': 'circle',
+  'marker-color': '#008990'
+  });
+
+//set the styles of other markers
+var markerOptions = {
+  radius: 7,
+  fillColor: "#fff",
+  color: "#008990",
+  weight: 2,
+  opacity: 1,
+  fillOpacity: .9
+};
+
+var firstPing = pings_{{ day.pk }}.features[0];
+
+// create first marker
+var firstMarker = L.geoJson(firstPing, {
+  pointToLayer: function(feature, latlng) {
+    return L.marker(latlng, {
+      icon: firstLastStyles
+    })
+  }
+}).addTo(map);
+
+var numberPings = pings_{{ day.pk }}.features.length;
+
+
+  //code runs if there is more than one entry
+  if (numberPings > 1) {
+
+    //add start text to firstMarker
+    var firstMarkerText = L.geoJson(firstPing, {
+      pointToLayer: function(feature, latlng) {
+        return L.marker(latlng, {
+              icon: L.divIcon({
+                // Specify a class name we can refer to in CSS.
+                className: 'map-icon-text',
+                // Define what HTML goes in each marker.
+                html: "START",
+                // Set a markers width and height.
+                iconSize: [50, 20]
+              })
+        })
+      }
+    }).addTo(map);
+
+    //add an ending Marker
+    var lastPing = pings_{{ day.pk }}.features[numberPings-1];
+    // create last marker
+    var lastMarker = L.geoJson(lastPing, {
+      pointToLayer: function(feature, latlng) {
+        return L.marker(latlng, {
+          icon: firstLastStyles
+        })
+      }
+    });
+
+    var lastMarkerText = L.geoJson(lastPing, {
+      pointToLayer: function(feature, latlng) {
+        return L.marker(latlng, {
+              icon: L.divIcon({
+                // Specify a class name we can refer to in CSS.
+                className: 'map-icon-text',
+                // Define what HTML goes in each marker.
+                html: "END",
+                // Set a markers width and height.
+                iconSize: [45, 20]
+              })
+        })
+      }
+    }).addTo(map);
+
+    //create markers between the first and the last
+    for (var i = 1; i < numberPings-1; i++) {
+      var middleMarkers = L.geoJson(pings_{{ day.pk }}.features[i], {
+        pointToLayer: function(feature, latlng) {
+          return L.circleMarker(latlng, markerOptions);
+          }
+        }).addTo(map);
+
+      }
+
+    lastMarker.addTo(map);
+};
+
+//hide start and end text on zoom levels
+map.on('zoomend', function() {
+    if (map.getZoom() < 8) {
+       map.removeLayer(firstMarkerText);
+       map.removeLayer(lastMarkerText);
+    } else {
+      map.addLayer(firstMarkerText);
+      map.addLayer(lastMarkerText);
+    }
 });
 
+var data_layer = L.geoJson(pings_{{ day.pk }});
+
+map.fitBounds(data_layer.getBounds(), {
+maxZoom: 10
+}); //end of mapping
+
 })();
+
+
 
 </script>
 {% endblock %}

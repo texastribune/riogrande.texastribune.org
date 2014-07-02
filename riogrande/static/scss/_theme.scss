@@ -1,6 +1,7 @@
 body {
   color: $offblack;
   line-height: 1;
+  text-rendering: optimizelegibility;
 }
 
 a {
@@ -697,6 +698,81 @@ hr.divider {
           font-weight: 400;
           margin: 0 0 .25em 0;
         }
+      }
+    }
+  }
+}
+
+table {
+  font-family: $helvetica;
+  margin: 0 0 1em;
+  width: 100%;
+
+  th {
+    border-bottom: 1px solid rgb(187, 187, 187);
+    font-size: 1em;
+    font-weight: 800;
+    padding: 0 1em .25em;
+    text-align: right;
+    vertical-align: middle;
+
+    &:first-child {
+      text-align: left;
+    }
+  }
+
+  td {
+    font-size: .875em;
+    padding: 8px 16px;
+    text-align: right;
+
+    &:first-child {
+      text-align: left;
+    }
+  }
+
+  tr {
+    &:nth-child(odd) td {
+      background-color: rgb(240, 240, 240);
+    }
+  }
+
+  @include media($mobile) {
+    display: block;
+
+    thead,
+    tbody,
+    tr,
+    th,
+    td {
+      display: block;
+    }
+
+    thead {
+      tr {
+        @include visually-hidden;
+      }
+    }
+
+    td {
+      border-bottom: 1px solid rgb(220, 220, 220);
+      padding-left: 50%;
+      position: relative;
+      text-align: right;
+
+      &:first-child {
+        text-align: right;
+      }
+
+      &:before {
+        content: attr(data-title);
+        font-weight: bold;
+        left: .5em;
+        padding-right: 10px;
+        position: absolute;
+        text-align: left;
+        white-space: nowrap;
+        width: 45%;
       }
     }
   }
