@@ -22,6 +22,7 @@ hr {
   background-color: $accentColor;
   border: 0px none;
   height: 1px;
+  margin-bottom: 2em;
 }
 
 hr.yellow {
@@ -31,14 +32,14 @@ hr.yellow {
   margin-bottom: 1em;
 }
 
-hr.divider {
-  margin-top: 2em;
-}
-
 .map {
   height: 250px;
   margin: 0 0 .5em;
   width: 100%;
+}
+
+.day-container {
+  margin-bottom: 4em;
 }
 
 .map-disclaimer {
@@ -49,6 +50,40 @@ hr.divider {
   p {
     font-size: .875em;
     line-height: 1.4em;
+  }
+}
+
+.content-measurements {
+  font-family: $textFont;
+  font-size: .875em;
+  width: 60%;
+  margin: 0 auto;
+
+  .measurement {
+    margin-bottom: 1.5em;
+    text-align: center;
+
+    .measurement-amount {
+      font-family: 'league-gothic', $helvetica;
+      font-size: 2.5em;
+      margin-bottom: .125em;
+    }
+
+    .measurement-name {
+      font-family: $helvetica;
+      font-weight: 400;
+      font-size: 1em;
+    }
+
+    dt, dd {
+      margin: 0;
+      padding: 0;
+    }
+
+    dt {
+      font-weight: 600;
+      margin-bottom: .25em;
+    }
   }
 }
 
@@ -271,7 +306,7 @@ hr.divider {
 
   .content-day-header {
     @include media($desktop) {
-      margin: 4em auto 0;
+      margin: 0 auto;
       width: 100%;
     }
 
@@ -286,40 +321,6 @@ hr.divider {
         @include media($desktop) {
           font-size: 2em;
         }
-      }
-    }
-  }
-
-  .content-measurements {
-    font-family: $textFont;
-    font-size: .875em;
-    width: 60%;
-    margin: 0 auto;
-
-    .measurement {
-      margin-bottom: 1.5em;
-      text-align: center;
-
-      .measurement-amount {
-        font-family: 'league-gothic', $helvetica;
-        font-size: 2.5em;
-        margin-bottom: .125em;
-      }
-
-      .measurement-name {
-        font-family: $helvetica;
-        font-weight: 400;
-        font-size: 1em;
-      }
-
-      dt, dd {
-        margin: 0;
-        padding: 0;
-      }
-
-      dt {
-        font-weight: 600;
-        margin-bottom: .25em;
       }
     }
   }

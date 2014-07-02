@@ -1,5 +1,6 @@
 {% load geojson_tags %}
 
+<div class="day-container">
 <div class="content-block">
   <div class="content-day-header">
     <header>
@@ -80,41 +81,39 @@
         </header>
       </div>
     </div>
-    <div class="content-block">
-      <div class="content-measurements">
-          <div class="measurement">
-            <div class="measurement-amount">{{ day.measurement_for.air_temperature }}</div>
-            <div class="measurement-name">Air temperature (&deg;C)</div>
-          </div>
-          <div class="measurement">
-            <div class="measurement-amount">{{ day.measurement_for.conductivity }}</div>
-            <div class="measurement-name">Conductivity (&micro;S/cm)</div>
-          </div>
-          <div class="measurement">
-            <div class="measurement-amount">{{ day.measurement_for.depth }}</div>
-            <div class="measurement-name">Depth of Measurement (meters)</div>
-          </div>
-          <div class="measurement">
-            <div class="measurement-amount">{{ day.measurement_for.dissolved_oxygen }}</div>
-            <div class="measurement-name">Dissolved oxygen (mg/L)</div>
-          </div>
-          <div class="measurement">
-            <div class="measurement-amount">{{ day.measurement_for.e_coli }}</div>
-            <div class="measurement-name">E. coli colonies per 100 ml</div>
-          </div>
-          <div class="measurement">
-            <div class="measurement-amount">{{ day.measurement_for.ph_level }}</div>
-            <div class="measurement-name">pH level</div>
-          </div>
-          <div class="measurement">
-            <div class="measurement-amount">{{ day.measurement_for.secchi_disk_transparency }}</div>
-            <div class="measurement-name">Secchi disk transparency (meters)</div>
-          </div>
-          <div class="measurement">
-            <div class="measurement-amount">{{ day.measurement_for.water_temperature }}</div>
-            <div class="measurement-name">Water temperature (&deg;C)</div>
-          </div>
-      </div>
+    <div class="content-measurements">
+        <div class="measurement">
+          <div class="measurement-amount">{{ day.measurement_for.air_temperature }}</div>
+          <div class="measurement-name">Air temperature (&deg;C)</div>
+        </div>
+        <div class="measurement">
+          <div class="measurement-amount">{{ day.measurement_for.conductivity }}</div>
+          <div class="measurement-name">Conductivity (&micro;S/cm)</div>
+        </div>
+        <div class="measurement">
+          <div class="measurement-amount">{{ day.measurement_for.depth }}</div>
+          <div class="measurement-name">Depth of Measurement (meters)</div>
+        </div>
+        <div class="measurement">
+          <div class="measurement-amount">{{ day.measurement_for.dissolved_oxygen }}</div>
+          <div class="measurement-name">Dissolved oxygen (mg/L)</div>
+        </div>
+        <div class="measurement">
+          <div class="measurement-amount">{{ day.measurement_for.e_coli }}</div>
+          <div class="measurement-name">E. coli colonies per 100 ml</div>
+        </div>
+        <div class="measurement">
+          <div class="measurement-amount">{{ day.measurement_for.ph_level }}</div>
+          <div class="measurement-name">pH level</div>
+        </div>
+        <div class="measurement">
+          <div class="measurement-amount">{{ day.measurement_for.secchi_disk_transparency }}</div>
+          <div class="measurement-name">Secchi disk transparency (meters)</div>
+        </div>
+        <div class="measurement">
+          <div class="measurement-amount">{{ day.measurement_for.water_temperature }}</div>
+          <div class="measurement-name">Water temperature (&deg;C)</div>
+        </div>
     </div>
     <div class="content-block">
       <div class="content-glossary">
@@ -342,3 +341,5 @@ maxZoom: 10
 </script>
 {% endblock %}
 {% endif %}
+
+</div>
