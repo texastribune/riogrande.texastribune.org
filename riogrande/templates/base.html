@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Disappearing Rio Grande | The Texas Tribune</title>
-  <link rel="shortcut icon" type="image/x-icon" href="https://s3.amazonaws.com/static.texastribune.org/common/images/favicon.ico">
+  <link rel="shortcut icon" type="image/x-icon" href="//s3.amazonaws.com/static.texastribune.org/common/images/favicon.ico">
   {% load staticfiles %}
   <meta property="og:site_name" content="The Texas Tribune">
   {% block opengraph %}
@@ -57,7 +57,7 @@
     <nav>
       <ul>
         <a href="{% url 'landing' %}"><li>Home</li></a>
-        <a href="{% url 'archive' %}"><li>The Journey</li></a>
+        <a href="{% url 'archive' %}"><li>The Expedition</li></a>
         <a href="{% url 'about' %}"><li>About</li></a>
       </ul>
     </nav>
@@ -87,6 +87,8 @@
     <span class="story-summary-read-more"><a href="{{ most_recent_story.get_absolute_url }}">Read more</a></span>
   </div>
 </div>
+
+<hr>
 
 {% endif %}
 
@@ -125,6 +127,10 @@
       <div class="contributor">
         <div class="contributor-name"><a href="mailto:rmurphy@texastribune.org">Ryan Murphy</a></div>
         <div class="contributor-credit">News Apps Team Lead | <a href="https://twitter.com/rdmurphy">@rdmurphy</a></div>
+      </div>
+      <div class="contributor">
+        <div class="contributor-name"><a href="mailto:jhamel@texastribune.org">Jessica Hamel</a></div>
+        <div class="contributor-credit">News Apps Fellow | <a href="https://twitter.com/jessihamel">@jessihamel</a></div>
       </div>
       <div class="contributor">
         <div class="contributor-name"><a href="mailto:bhasson@texastribune.org">Ben Hasson</a></div>
