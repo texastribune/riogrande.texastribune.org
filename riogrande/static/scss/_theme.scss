@@ -1,6 +1,7 @@
 body {
   color: $offblack;
   line-height: 1;
+  text-rendering: optimizelegibility;
 }
 
 a {
@@ -18,10 +19,10 @@ ul {
 }
 
 hr {
+  background-color: $accentColor;
   border: 0px none;
   height: 1px;
-  background-color: $accentColor;
-  margin-bottom: 1em;
+  margin-bottom: 2em;
 }
 
 hr.yellow {
@@ -31,13 +32,59 @@ hr.yellow {
   margin-bottom: 1em;
 }
 
-hr.divider {
-  margin-top: 2em;
+.map {
+  height: 250px;
+  margin: 0 0 .5em;
+  width: 100%;
 }
 
-.map {
-  width: 100%;
-  height: 250px;
+.day-container {
+  margin-bottom: 4em;
+}
+
+.map-disclaimer {
+  background-color: rgb(245, 245, 245);
+  font-family: $helvetica;
+  padding: .625em;
+
+  p {
+    font-size: .875em;
+    line-height: 1.4em;
+  }
+}
+
+.content-measurements {
+  font-family: $textFont;
+  font-size: .875em;
+  width: 60%;
+  margin: 0 auto;
+
+  .measurement {
+    margin-bottom: 1.5em;
+    text-align: center;
+
+    .measurement-amount {
+      font-family: 'league-gothic', $helvetica;
+      font-size: 2.5em;
+      margin-bottom: .125em;
+    }
+
+    .measurement-name {
+      font-family: $helvetica;
+      font-weight: 400;
+      font-size: 1em;
+    }
+
+    dt, dd {
+      margin: 0;
+      padding: 0;
+    }
+
+    dt {
+      font-weight: 600;
+      margin-bottom: .25em;
+    }
+  }
 }
 
 .content-block {
@@ -101,7 +148,7 @@ hr.divider {
 
   .share-row {
     border-top: 1px solid rgb(204, 204, 204);
-    margin-bottom: .5em;
+    margin-bottom: .75em;
     @include row();
 
     @include media($desktop) {
@@ -278,40 +325,6 @@ hr.divider {
     }
   }
 
-  .content-measurements {
-    font-family: $textFont;
-    font-size: .875em;
-    width: 60%;
-    margin: 0 auto;
-
-    .measurement {
-      margin-bottom: 1.5em;
-      text-align: center;
-
-      .measurement-amount {
-        font-family: 'league-gothic', $helvetica;
-        font-size: 2.5em;
-        margin-bottom: .125em;
-      }
-
-      .measurement-name {
-        font-family: $helvetica;
-        font-weight: 400;
-        font-size: 1em;
-      }
-
-      dt, dd {
-        margin: 0;
-        padding: 0;
-      }
-
-      dt {
-        font-weight: 600;
-        margin-bottom: .25em;
-      }
-    }
-  }
-
   .content-header {
     @include media($desktop) {
       margin: 0 auto;
@@ -478,7 +491,7 @@ hr.divider {
 .app-header {
   color: $offwhite;
   font-family: $boldHeaderFont;
-  margin: 0 auto 1em auto;
+  margin: 0 auto 1em;
   height: 225px;
   position: relative;
   background-image: url('/static/images/rio-header-large.jpg');
@@ -486,8 +499,8 @@ hr.divider {
   background-position: 0% 70%;
 
   .head {
+    bottom: 0;
     position: absolute;
-    bottom: 4%;
     text-align: center;
     width: 100%;
 
@@ -500,10 +513,12 @@ hr.divider {
       font-size: 2em;
       font-weight: 900;
       line-height: 1.2;
-      text-shadow: rgb(0, 0, 0) 3px 3px 0px;
+      margin: 0;
+      text-shadow: rgb(0, 0, 0) 3px 3px 0;
 
       @include media($desktop) {
         font-size: 3.5em;
+        margin: 0 0 .5em;
       }
     }
 
@@ -513,18 +528,18 @@ hr.divider {
 
     ul {
       font-family: $helvetica;
-      font-size: 0.75em;
+      font-size: .75em;
       font-weight: 700;
       text-transform: uppercase;
 
       li {
-        background-color: rgba(10, 10, 10, 0.4);
+        background-color: rgba(10, 10, 10, .4);
         border: 1px solid rgb(255, 255, 255);
         display: inline-block;
         letter-spacing: .0625em;
-        margin: 0 0 .3125em 0;
-        padding: .65em 0;
-        width: 320px;
+        margin: 0 0 .3125em;
+        padding: .875em 0;
+        width: 80%;
 
         &:hover {
           background-color: $linkColor;
@@ -532,8 +547,9 @@ hr.divider {
         }
 
         @include media($desktop) {
-          margin: 0 .5em 0 .5em;
+          margin: 0 .5em;
           padding: 1em 0;
+          width: 320px;
         }
       }
     }
@@ -683,6 +699,81 @@ hr.divider {
           font-weight: 400;
           margin: 0 0 .25em 0;
         }
+      }
+    }
+  }
+}
+
+table {
+  font-family: $helvetica;
+  margin: 0 0 1em;
+  width: 100%;
+
+  th {
+    border-bottom: 1px solid rgb(187, 187, 187);
+    font-size: 1em;
+    font-weight: 800;
+    padding: 0 1em .25em;
+    text-align: right;
+    vertical-align: middle;
+
+    &:first-child {
+      text-align: left;
+    }
+  }
+
+  td {
+    font-size: .875em;
+    padding: 8px 16px;
+    text-align: right;
+
+    &:first-child {
+      text-align: left;
+    }
+  }
+
+  tr {
+    &:nth-child(odd) td {
+      background-color: rgb(240, 240, 240);
+    }
+  }
+
+  @include media($mobile) {
+    display: block;
+
+    thead,
+    tbody,
+    tr,
+    th,
+    td {
+      display: block;
+    }
+
+    thead {
+      tr {
+        @include visually-hidden;
+      }
+    }
+
+    td {
+      border-bottom: 1px solid rgb(220, 220, 220);
+      padding-left: 50%;
+      position: relative;
+      text-align: right;
+
+      &:first-child {
+        text-align: right;
+      }
+
+      &:before {
+        content: attr(data-title);
+        font-weight: bold;
+        left: .5em;
+        padding-right: 10px;
+        position: absolute;
+        text-align: left;
+        white-space: nowrap;
+        width: 45%;
       }
     }
   }

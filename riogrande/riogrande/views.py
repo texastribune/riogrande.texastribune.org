@@ -4,10 +4,6 @@ from django.shortcuts import get_object_or_404
 from django.views.generic import DateDetailView, ListView, TemplateView
 
 from days.models import Day
-from measurements.models import Measurement
-from photos.models import Gallery
-from pings.models import Ping
-from posts.models import Post
 from stories.models import Story
 
 
@@ -54,4 +50,3 @@ class AboutView(TemplateView):
 class ArchiveView(ListView):
     model = Day
     template_name = 'archive.html'
-
