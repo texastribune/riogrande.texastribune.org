@@ -25,7 +25,7 @@ urlpatterns = patterns(
     url(r'^about/', views.AboutView.as_view(), name='about'),
     url(r'^archive/', views.ArchiveView.as_view(), name='archive'),
 
-    (r'^feed/$', feeds.DayFeed()),
+    url(r'^feed/$', feeds.DayFeed(), name='feed'),
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^robots.txt', TemplateView.as_view(
