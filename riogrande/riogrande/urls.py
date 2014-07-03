@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.conf.urls import patterns, include, url
 from django.conf.urls.static import static
+from django.views.generic import TemplateView
 
 from django.contrib import admin
 admin.autodiscover()
@@ -27,5 +28,7 @@ urlpatterns = patterns(
     (r'^feed/$', feeds.DayFeed()),
 
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^robots.txt', TemplateView.as_view(
+        content_type='text/plain', template_name='robots.txt')),
 
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -18,6 +18,9 @@ node_modules
 # CSS things
 riogrande/static/css/*.css*
 
+# SASS things
+.sass-cache/
+
 # Django things
 riogrande/media/
 riogrande/assets/

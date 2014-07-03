@@ -1,6 +1,5 @@
 from django.core.urlresolvers import reverse
 from django.db import models
-from django.utils.timezone import localtime
 
 
 class Day(models.Model):

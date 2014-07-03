@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Disappearing Rio Grande | The Texas Tribune</title>
-  <link rel="shortcut icon" type="image/x-icon" href="https://s3.amazonaws.com/static.texastribune.org/common/images/favicon.ico">
+  <link rel="shortcut icon" type="image/x-icon" href="//s3.amazonaws.com/static.texastribune.org/common/images/favicon.ico">
   {% load staticfiles %}
   <meta property="og:site_name" content="The Texas Tribune">
   {% block opengraph %}
@@ -57,7 +57,7 @@
     <nav>
       <ul>
         <a href="{% url 'landing' %}"><li>Home</li></a>
-        <a href="{% url 'archive' %}"><li>The Journey</li></a>
+        <a href="{% url 'archive' %}"><li>The Expedition</li></a>
         <a href="{% url 'about' %}"><li>About</li></a>
       </ul>
     </nav>
@@ -88,6 +88,8 @@
   </div>
 </div>
 
+<hr>
+
 {% endif %}
 
 {% block content %}{% endblock %}
@@ -97,18 +99,16 @@
 <hr class="yellow divider">
 
 <section class="about">
-  <div class="content-block">
-    <div class="content-prose">
-      <p class="subhead"><a href="{% url 'about' %}">About</a></p>
-      <p>The Rio Grande has been the lifeblood of the valleys and civilizations it flowed through for more than 3,000 years. As cities and farms suck it dry and a warming climate makes it evaporate faster, the river's future has never been more uncertain. Reporter Colin McDonald and photojournalist Erich Schlegel are traveling the length of the Rio Grande, interviewing those who depend on and control it, taking photos and videos, and cataloging the chemistry and biology of the river from the Rocky Mountains to the Gulf of Mexico.
+  <div class="content-prose">
+    <p class="subhead"><a href="{% url 'about' %}">About</a></p>
+    <p>The Rio Grande has been the lifeblood of the valleys and civilizations it flowed through for more than 3,000 years. As cities and farms suck it dry and a warming climate makes it evaporate faster, the river's future has never been more uncertain. Reporter Colin McDonald and photojournalist Erich Schlegel are traveling the length of the Rio Grande, interviewing those who depend on and control it, taking photos and videos, and cataloging the chemistry and biology of the river from the Rocky Mountains to the Gulf of Mexico.
 
-      <p>Their work will be uploaded from the banks of the river via satellite and shared here as they spend seven months on this 1,900-mile journey.</p>
-    </div>
+    <p>Their work will be uploaded from the banks of the river via satellite and shared here as they spend seven months on this 1,900-mile journey.</p>
   </div>
-  <div class="content-block">
-    <div class="content-prose">
-      <p class="subhead">Contributors</p>
-    </div>
+  <div class="content-prose">
+    <p class="subhead">Contributors</p>
+  </div>
+  <div class="content-block content-block-100">
     <div class="content-contributors">
       <div class="contributor">
         <div class="contributor-name"><a href="mailto:mcd.colin@gmail.com">Colin McDonald</a></div>
@@ -127,8 +127,16 @@
         <div class="contributor-credit">News Apps Team Lead | <a href="https://twitter.com/rdmurphy">@rdmurphy</a></div>
       </div>
       <div class="contributor">
+        <div class="contributor-name"><a href="mailto:jhamel@texastribune.org">Jessica Hamel</a></div>
+        <div class="contributor-credit">News Apps Fellow | <a href="https://twitter.com/jessihamel">@jessihamel</a></div>
+      </div>
+      <div class="contributor">
         <div class="contributor-name"><a href="mailto:bhasson@texastribune.org">Ben Hasson</a></div>
         <div class="contributor-credit">Web Designer | <a href="https://twitter.com/been_hussln">@been_hussln</a></div>
+      </div>
+      <div class="contributor">
+        <div class="contributor-name"><a href="mailto:jreynolds@texastribune.org">John Reynolds</a></div>
+        <div class="contributor-credit">Editor | <a href="https://twitter.com/johnreynoldstt">@johnreynoldstt</a></div>
       </div>
     </div>
   </div>
@@ -138,6 +146,7 @@
 
 <footer class="tribune-footer">
 <div class="app-container">
+  <div class="content-block">
   <nav class="first-nav">
     <ul>
       <li>&copy; 2014 <a href="http://www.texastribune.org/">The Texas Tribune</a></li>
@@ -151,12 +160,15 @@
       <li><a href="http://www.texastribune.org/terms-of-service/">Terms of Service</a></li>
       <li><a href="http://www.texastribune.org/ethics/">Code of Ethics</a></li>
       <li><a href="http://www.texastribune.org/privacy/">Privacy Policy</a></li>
-      <li><a href="https://www.texastribune.org/join/">Donate</a></li>
+      <li class="donor-item"><a href="https://www.texastribune.org/join/">Donate</a></li>
     </ul>
   </nav>
+  </div>
 </div>
 </footer>
 
+<script src="{% static 'js/libs/jquery.min.js' %}"></script>
+<script src="{% static 'js/app.js' %}"></script>
 {% block extra_script %}{% endblock %}
 </body>
 </html>
