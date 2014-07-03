@@ -171,7 +171,7 @@
     <thead>
       <tr>
         <th>Check-In</th>
-        <th>Time of Check-In</th>
+        <th>Time of Check-In (CST)</th>
         <th>Latitude</th>
         <th>Longitude</th>
       </tr>
@@ -180,7 +180,7 @@
       {% for p in day.pings.geojson %}
         <tr>
           <td data-title="Check-In">#{{ forloop.counter }}</td>
-          <td data-title="Time of Check-In">{{ p.pub_time }}</td>
+          <td data-title="Time of Check-In (CST)">{{ p.tz_pub_datetime }}</td>
           <td data-title="Latitude">{{ p.location.y }}</td>
           <td data-title="Longitude">{{ p.location.x }}</td>
         </tr>
