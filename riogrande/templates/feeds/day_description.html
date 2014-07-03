@@ -1,3 +1,11 @@
 {% if obj.post_for and obj.post_for.pub_status == 'P' %}
-{{ obj.post_for.text|truncatewords:150|safe }}
+{{ obj.post_for.text|truncatewords:100|safe }}
+{% endif %}
+
+{% if obj.gallery_for and obj.gallery_for.pub_status == 'P' %}
+<p><em><a href="{{ obj.get_absolute_url }}#photos">Click to view photo gallery</a>.</em></p>
+{% endif %}
+
+{% if obj.measurement_for and obj.measurement_for.pub_status == 'P' %}
+<p><em><a href="{{ obj.get_absolute_url }}#measurements">Click to view measurements</a>.</em></p>
 {% endif %}

@@ -11,7 +11,7 @@ class DayFeed(Feed):
     description_template = 'feeds/day_description.html'
 
     def items(self):
-        return Day.objects.order_by('-date')[:10]
+        return Day.objects.order_by('-date')[:20]
 
     def item_title(self, day):
         try:
