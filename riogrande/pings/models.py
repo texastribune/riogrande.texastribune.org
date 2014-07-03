@@ -1,11 +1,15 @@
+from datetime import datetime
+
 from django.contrib.gis.db import models
 
-from django.utils.timezone import localtime
+from django.utils.dateformat import DateFormat
 
 from riogrande.choices import PublicationStatus
 from riogrande.managers import PublishedObjectsGeoManager
 
 from days.models import Day
+
+import pytz
 
 
 class Ping(models.Model):
@@ -28,3 +32,11 @@ class Ping(models.Model):
             self.location.y,
             self.location.x,
             self.pub_date.date.isoformat())
+
+    @property
+    def tz_pub_datetime(self):
+        date = datetime.combine(self.pub_date.date, self.pub_time)
+        central = pytz.timezone('US/Central')
+        date = date.replace(tzinfo=pytz.UTC).astimezone(central)
+
+        return DateFormat(date).format('g:i a')
