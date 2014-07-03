@@ -350,27 +350,27 @@ hr.yellow {
       width: 60%;
     }
   }
+}
 
-  .content-photo {
-    margin-bottom: .5em;
+.content-photo {
+  margin-bottom: .5em;
 
-    @include media($desktop) {
-      margin: 0 auto 1em auto;
-      width: 100%;
-    }
+  @include media($desktop) {
+    margin: 0 auto 1em;
+    width: 100%;
+  }
 
-    img {
-      width: 100%;
-    }
+  img {
+    width: 100%;
+  }
 
-    .content-photo-caption {
-      color: $captionGray;
-      font-family: $sansTextFont;
-      font-size: .75em;
-      font-weight: 400;
-      line-height: 1.4;
-      margin-right: .3125em;
-    }
+  .content-photo-caption {
+    color: $captionGray;
+    font-family: $sansTextFont;
+    font-size: .75em;
+    font-weight: 400;
+    line-height: 1.4;
+    margin-right: .3125em;
   }
 }
 
@@ -387,7 +387,7 @@ hr.yellow {
     font-size: 1em;
 
     h3 {
-      font-size: 1.3em;
+      font-size: 1.3125em;
       font-weight: 400;
       margin: 0;
       padding: 0;
@@ -406,6 +406,7 @@ hr.yellow {
       color: $captionGray;
       font-family: $helvetica;
       font-size: .875em;
+      margin-top: .5em;
 
       a {
         font-weight: 800;
