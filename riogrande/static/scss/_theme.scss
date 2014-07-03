@@ -13,6 +13,21 @@ a {
   }
 }
 
+.jumper {
+  color: $offblack;
+
+  .pinger {
+    color: $captionGray;
+    display: none;
+  }
+
+  &:hover {
+    .pinger {
+      display: inline;
+    }
+  }
+}
+
 ul {
   list-style: none;
   padding: 0;
@@ -34,7 +49,7 @@ hr.yellow {
 
 .map {
   height: 250px;
-  margin: 0 0 .5em;
+  margin: 0 0 1em;
   width: 100%;
 }
 
@@ -43,9 +58,7 @@ hr.yellow {
 }
 
 .map-disclaimer {
-  background-color: rgb(245, 245, 245);
   font-family: $helvetica;
-  padding: .625em;
 
   p {
     font-size: .875em;
@@ -87,33 +100,39 @@ hr.yellow {
   }
 }
 
-.content-block {
-  width: 80%;
-  margin: 0 auto .5em auto;
+.glossary-hidden {
+  @include visually-hidden;
+}
 
-  @include media($desktop) {
-    width: 100%;
-  }
+.content-block {
+  margin: 0 auto .5em;
+  width: 80%;
 
   .content-glossary {
-    font-family: $helvetica;
     background-color: rgb(245, 245, 245);
+    font-family: $helvetica;
+    margin: 0 0 2em;
     padding: .625em;
 
     @include media($desktop) {
-      margin: 0 auto;
+      margin: 0 auto 2em;
       width: 100%;
     }
 
     .glossary-header {
       color: rgb(34, 34, 34);
-      font-size: .5em;
+      font-size: .375em;
 
       header {
         h1 {
           margin: 0;
           padding: 0;
         }
+      }
+
+      &:hover {
+        cursor: pointer;
+        text-decoration: underline;
       }
     }
 
@@ -128,7 +147,8 @@ hr.yellow {
       font-size: .85em;
       line-height: 1.4em;
       dl {
-        dt, dd {
+        dt,
+        dd {
           margin: 0;
           padding: 0;
         }
@@ -191,7 +211,7 @@ hr.yellow {
 
   .content-contributors {
     @include media($desktop) {
-      margin: 0 auto 1em auto;
+      margin: 0 auto;
       width: 60%;
     }
 
@@ -325,104 +345,9 @@ hr.yellow {
     }
   }
 
-  .content-header {
-    @include media($desktop) {
-      margin: 0 auto;
-      width: 100%;
-    }
-
-    header {
-      font-family: $georgia;
-      font-size: 1em;
-
-      h3 {
-        font-size: 1.3em;
-        font-weight: 400;
-        margin: 0;
-        padding: 0;
-      }
-
-      h4 {
-        font-family: $helvetica;
-        font-size: 1em;
-        font-weight: 800;
-        margin: 0 0 .75em 0;
-        padding: 0;
-        text-transform: uppercase;
-      }
-
-      p {
-        color: $captionGray;
-        font-family: $helvetica;
-        font-size: .875em;
-
-        a {
-          font-weight: 800;
-        }
-      }
-    }
-  }
-
   .content-sub-header {
     @include media($desktop) {
       width: 60%;
-    }
-  }
-
-  .content-prose {
-    @include media($desktop) {
-      margin: 0 auto 1em auto;
-      width: 60%;
-    }
-
-    p {
-      font-family: $textFont;
-      font-size: 1em;
-      font-weight: 400;
-      line-height: 1.45;
-    }
-
-    blockquote {
-      border-top: 1px solid rgb(255, 194, 0);
-      border-bottom: 1px solid rgb(255, 194, 0);
-      padding: 1em 0;
-      margin: 0;
-
-      p {
-        font-size: 1.2em;
-        font-style: italic;
-        font-weight: 800;
-        margin: 0;
-        padding: 0;
-
-        @include media($desktop) {
-          font-size: 1.5em;
-        }
-      }
-    }
-
-    .subhead {
-      font-family: $helvetica;
-      font-weight: 800;
-      text-transform: uppercase;
-    }
-
-    .donor-list {
-      color: rgb(136, 136, 136);
-      font-family: $helvetica;
-      font-size: .875em;
-      font-weight: 400;
-      letter-spacing: .03em;
-
-      .donor {
-        border-right: 1px solid rgb(136, 136, 136);
-        margin: 0;
-        padding: 0 .25em 0 0;
-
-        &:last-child {
-          border-right: none;
-        }
-      }
     }
   }
 
@@ -447,26 +372,143 @@ hr.yellow {
       margin-right: .3125em;
     }
   }
+}
 
-  .content-gallery-photo {
-    margin: 0 auto 1em auto;
-    @include media($desktop) {
-      width: 60%;
-    }
+.content-header {
+  margin: 0 auto;
+  width: 80%;
 
-    img {
-      width: 100%;
-    }
+  @include media($desktop) {
+    width: 60%;
+  }
 
-    .content-photo-caption {
-      color: $captionGray;
-      font-family: $sansTextFont;
-      font-size: .75em;
+  header {
+    font-family: $georgia;
+    font-size: 1em;
+
+    h3 {
+      font-size: 1.3em;
       font-weight: 400;
-      line-height: 1.4;
-      margin-right: .3125em;
+      margin: 0;
+      padding: 0;
+    }
+
+    h4 {
+      font-family: $helvetica;
+      font-size: 1em;
+      font-weight: 800;
+      margin: 0 0 .75em 0;
+      padding: 0;
+      text-transform: uppercase;
+    }
+
+    p {
+      color: $captionGray;
+      font-family: $helvetica;
+      font-size: .875em;
+
+      a {
+        font-weight: 800;
+      }
     }
   }
+}
+
+.content-header-post {
+  width: 100%;
+}
+
+.content-gallery-photo {
+  margin: 0 auto 1em auto;
+  width: 80%;
+
+  @include media($desktop) {
+    width: 60%;
+  }
+
+  img {
+    width: 100%;
+  }
+
+  .content-photo-caption {
+    color: $captionGray;
+    font-family: $sansTextFont;
+    font-size: .75em;
+    font-weight: 400;
+    line-height: 1.4;
+    margin-right: .3125em;
+  }
+}
+
+.content-prose {
+  margin: 0 auto 2em;
+  width: 80%;
+
+  @include media($desktop) {
+    width: 60%;
+  }
+
+  p {
+    font-family: $textFont;
+    font-size: 1em;
+    font-weight: 400;
+    line-height: 1.45;
+  }
+
+  blockquote {
+    border-top: 1px solid rgb(255, 194, 0);
+    border-bottom: 1px solid rgb(255, 194, 0);
+    padding: 1em 0;
+    margin: 0;
+
+    p {
+      font-size: 1.2em;
+      font-style: italic;
+      font-weight: 800;
+      margin: 0;
+      padding: 0;
+
+      @include media($desktop) {
+        font-size: 1.5em;
+      }
+    }
+  }
+
+  .subhead {
+    font-family: $helvetica;
+    font-weight: 800;
+    text-transform: uppercase;
+  }
+
+  .donor-list {
+    color: rgb(136, 136, 136);
+    font-family: $helvetica;
+    font-size: .875em;
+    font-weight: 400;
+    letter-spacing: .03em;
+
+    .donor {
+      border-right: 1px solid rgb(136, 136, 136);
+      margin: 0;
+      padding: 0 .25em 0 0;
+
+      &:last-child {
+        border-right: none;
+      }
+    }
+  }
+}
+
+.content-block-100 {
+  width: 80%;
+
+  @include media($desktop) {
+    width: 100%;
+  }
+}
+
+.content-block-80 {
+  width: 80%;
 }
 
 .header {
@@ -559,82 +601,78 @@ hr.yellow {
 .tribune-footer {
   background-color: rgb(17, 17, 17);
   color: $offwhite;
-  font-size: .875em;
-  margin-top: 2em;
-  padding: .25em 0;
+  margin: 2em 0 0;
+  padding: .125em 0 0;
   text-align: center;
 
   @include media($desktop) {
-    display: block;
-    font-size: .75em;
-    padding: 1em 0;
+    padding: 0;
     text-align: none;
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%);
   }
 
-  .app-container {
-    .first-nav {
-      color: rgb(170, 170, 170);
-      @include media($desktop) {
-        float: left;
-      }
+  nav {
+    font-size: .875em;
 
-      li {
-        @include media($desktop) {
-          border: none;
-          padding: 0;
-        }
-      }
+    @include media($desktop) {
+      float: left;
+      font-size: .75em;
+      margin: 0 0 1em 0;
+    }
+  }
 
-      a {
-        color: rgb(170, 170, 170);
-      }
+  .first-nav {
+    color: rgb(170, 170, 170);
+
+    @include media($desktop) {
+      float: left;
     }
 
-    .last-nav {
-      @include media($desktop) {
-        float: right;
-      }
-
-      li {
-
-        a {
-          color: $offwhite;
-        }
-
-        &:last-child {
-          margin-bottom: 0;
-
-          a {
-            color: $linkColor;
-            font-weight: 800;
-          }
-        }
-      }
+    a {
+      color: rgb(170, 170, 170);
     }
 
     li {
-      margin: .75em 0;
+      padding: 0;
+    }
+  }
 
-      @include media($desktop) {
-        border-right: 1px solid $offwhite;
-        display: inline;
-        float: left;
-        margin: 0;
-        padding: 0 .5em;
+  .last-nav {
+    @include media($desktop) {
+      float: right;
+    }
+
+    a {
+      color: $offwhite;
+    }
+
+    .donor-item {
+      padding-right: 0;
+
+      a {
+        color: $linkColor;
+        font-weight: 800;
       }
+    }
+  }
 
-      &:last-child {
-        @include media($desktop) {
-          border: none;
-          padding: 0 0 0 .5em;
-        }
+  li {
+    margin: .75em 0;
+
+    @include media($desktop) {
+      border-left: 1px solid $offwhite;
+      display: inline;
+      float: left;
+      margin: 0;
+      padding: 0 .5em;
+
+      &:first-child {
+        border: 0;
+        padding-left: 0;
       }
     }
   }
 }
+
 
 .archive-header {
   margin: 0 0 1em 0;
@@ -739,6 +777,7 @@ table {
   }
 
   @include media($mobile) {
+    font-size: .875em;
     display: block;
 
     thead,
@@ -747,6 +786,10 @@ table {
     th,
     td {
       display: block;
+    }
+
+    tbody {
+      border-top: 1px solid rgb(220, 220, 220);
     }
 
     thead {

@@ -19,6 +19,15 @@ class Day(models.Model):
         if self.pings.count():
             return 'hello'
 
+    def get_absolute_url(self):
+        pub_date = self.date
+
+        return reverse('day', kwargs={
+            'year': pub_date.strftime('%Y'),
+            'month': pub_date.strftime('%m'),
+            'day': pub_date.strftime('%d'),
+        })
+
     def get_share_url(self):
         pub_date = self.date
 

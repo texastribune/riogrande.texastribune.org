@@ -7,6 +7,8 @@ from django.contrib import admin
 admin.autodiscover()
 
 from . import views
+from . import feeds
+
 
 urlpatterns = patterns(
     '',
@@ -22,6 +24,8 @@ urlpatterns = patterns(
         name='story_detail'),
     url(r'^about/', views.AboutView.as_view(), name='about'),
     url(r'^archive/', views.ArchiveView.as_view(), name='archive'),
+
+    (r'^feed/$', feeds.DayFeed()),
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^robots.txt', TemplateView.as_view(
