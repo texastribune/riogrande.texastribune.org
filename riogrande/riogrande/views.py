@@ -4,6 +4,8 @@ from django.shortcuts import get_object_or_404
 from django.views.generic import DateDetailView, ListView, TemplateView
 
 from days.models import Day
+from pings.models import Ping
+from posts.models import Post
 from stories.models import Story
 
 
@@ -50,3 +52,25 @@ class AboutView(TemplateView):
 class ArchiveView(ListView):
     model = Day
     template_name = 'archive.html'
+
+    def get_all_pings(self):
+        return [{
+            'lat': p.location.y,
+            'lng': p.location.x,
+            'date': p.pub_date.date.isoformat()
+        } for p in Ping.objects.all()]
+
+    def get_all_posts(self):
+        return [{
+            'lat': p.location.y,
+            'lng': p.location.x,
+            'date': p.pub_date.date.isoformat(),
+            'slug': p.slug
+        } for p in Post.objects.all()]
+
+    def get_context_data(self, **kwargs):
+      context = super(ArchiveView, self).get_context_data(**kwargs)
+      context['archive_post_list'] = self.get_all_posts()
+      context['archive_ping_list'] = self.get_all_pings()
+
+      return context

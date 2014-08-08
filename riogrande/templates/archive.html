@@ -14,7 +14,7 @@
   {% for day in object_list %}
     <hr>
 
-    <div class="archive-row">
+    <div class="archive-row" id="{{ day.date.isoformat }}">
       <div class="archive-row-date"><a href="{% url 'day' day.date.year day.date.month day.date.day %}">{{ day.date|date }}</a></div>
       {% if day.story_for %}
         <div class="archive-row-story-title"><span class="title">Story</span>: <a href="{{ day.story_for.get_absolute_url }}">{{ day.story_for.headline }}</a></div>
@@ -68,5 +68,16 @@
   {% endfor %}
   </div>
 </div>
+
+{% endblock %}
+
+{% block extra_script %}
+
+<script>
+
+var archivePostList = {{ archive_post_list|safe }};
+var archivePingList = {{ archive_ping_list|safe }};
+
+</script>
 
 {% endblock %}
