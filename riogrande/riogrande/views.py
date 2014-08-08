@@ -65,7 +65,7 @@ class ArchiveView(ListView):
             'lat': p.location.y,
             'lng': p.location.x,
             'date': p.pub_date.date.isoformat(),
-            'slug': p.slug
+            'slug': str(p.slug)
         } for p in Post.objects.all()]
 
     def get_context_data(self, **kwargs):
