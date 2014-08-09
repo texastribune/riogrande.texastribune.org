@@ -9,63 +9,68 @@
       <h2>The Expedition</h2>
     </header>
   </div>
-
-  <div class="archive-list">
-  {% for day in object_list %}
-    <hr>
-
-    <div class="archive-row" id="{{ day.date.isoformat }}">
-      <div class="archive-row-date"><a href="{% url 'day' day.date.year day.date.month day.date.day %}">{{ day.date|date }}</a></div>
-      {% if day.story_for %}
-        <div class="archive-row-story-title"><span class="title">Story</span>: <a href="{{ day.story_for.get_absolute_url }}">{{ day.story_for.headline }}</a></div>
-      {% endif %}
-      {% if day.post_for %}
-        <div class="archive-row-post-title"><span class="title">Post</span>: <a href="{% url 'day' day.date.year day.date.month day.date.day %}">{{ day.post_for.headline }}</a></div>
-      {% endif %}
-        <div class="archive-row-content-cells">
-          <div class="content-cell">
-            <div class="content-cell-header">Post</div>
-            <div class="content-cell-icon">
-              {% if day.post_for %}
-                <img src="{% static 'images/check.png' %}">
-              {% else %}
-                <img src="{% static 'images/x.png' %}">
-              {% endif %}
+</div>
+<div class="map-list-wrap">
+  <div class="map-container">
+    <div id='map'></div>
+  </div>
+  <div class="content-block">
+    <div class="archive-list">
+    {% for day in object_list %}
+      <div class="archive-row" id="{{ day.date.isoformat }}">
+        <hr>
+        <div class="archive-row-date"><a href="{% url 'day' day.date.year day.date.month day.date.day %}">{{ day.date|date }}</a></div>
+        {% if day.story_for %}
+          <div class="archive-row-story-title"><span class="title">Story</span>: <a href="{{ day.story_for.get_absolute_url }}">{{ day.story_for.headline }}</a></div>
+        {% endif %}
+        {% if day.post_for %}
+          <div class="archive-row-post-title"><span class="title">Post</span>: <a href="{% url 'day' day.date.year day.date.month day.date.day %}">{{ day.post_for.headline }}</a></div>
+        {% endif %}
+          <div class="archive-row-content-cells">
+            <div class="content-cell">
+              <div class="content-cell-header">Post</div>
+              <div class="content-cell-icon">
+                {% if day.post_for %}
+                  <img src="{% static 'images/check.png' %}">
+                {% else %}
+                  <img src="{% static 'images/x.png' %}">
+                {% endif %}
+              </div>
+            </div>
+            <div class="content-cell">
+              <div class="content-cell-header">Photo Gallery</div>
+              <div class="content-cell-icon">
+                {% if day.gallery_for %}
+                  <img src="{% static 'images/check.png' %}">
+                {% else %}
+                  <img src="{% static 'images/x.png' %}">
+                {% endif %}
+              </div>
+            </div>
+            <div class="content-cell">
+              <div class="content-cell-header">Measurements</div>
+              <div class="content-cell-icon">
+                {% if day.measurement_for %}
+                  <img src="{% static 'images/check.png' %}">
+                {% else %}
+                  <img src="{% static 'images/x.png' %}">
+                {% endif %}
+              </div>
+            </div>
+            <div class="content-cell">
+              <div class="content-cell-header">Pings</div>
+              <div class="content-cell-icon">
+                {% if day.pings.all %}
+                  <img src="{% static 'images/check.png' %}">
+                {% else %}
+                  <img src="{% static 'images/x.png' %}">
+                {% endif %}
+              </div>
             </div>
           </div>
-          <div class="content-cell">
-            <div class="content-cell-header">Photo Gallery</div>
-            <div class="content-cell-icon">
-              {% if day.gallery_for %}
-                <img src="{% static 'images/check.png' %}">
-              {% else %}
-                <img src="{% static 'images/x.png' %}">
-              {% endif %}
-            </div>
-          </div>
-          <div class="content-cell">
-            <div class="content-cell-header">Measurements</div>
-            <div class="content-cell-icon">
-              {% if day.measurement_for %}
-                <img src="{% static 'images/check.png' %}">
-              {% else %}
-                <img src="{% static 'images/x.png' %}">
-              {% endif %}
-            </div>
-          </div>
-          <div class="content-cell">
-            <div class="content-cell-header">Pings</div>
-            <div class="content-cell-icon">
-              {% if day.pings.all %}
-                <img src="{% static 'images/check.png' %}">
-              {% else %}
-                <img src="{% static 'images/x.png' %}">
-              {% endif %}
-            </div>
-          </div>
-        </div>
+      </div>
+    {% endfor %}
     </div>
-  {% endfor %}
   </div>
 </div>
 
@@ -73,10 +78,213 @@
 
 {% block extra_script %}
 
+<script src="//cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.4/waypoints.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.4/waypoints-sticky.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
 <script>
 
 var archivePostList = {{ archive_post_list|safe }};
 var archivePingList = {{ archive_ping_list|safe }};
+var archivePostList = [{'lat': 37.6488, 'lng': -107.06197, 'date': '2014-06-24'}, {'lat': 37.66895, 'lng': -106.6434, 'date': '2014-06-20'}, {'lat': 37.72227, 'lng': -107.26004, 'date': '2014-06-19'}, {'lat': 37.7495, 'lng': -107.42831, 'date': '2014-06-18'}, {'lat': 37.60476, 'lng': -106.8264, 'slug': 'turtles-hunt-gold', 'date': '2014-06-16'}]
+
+var map = L.mapbox.map('map', 'texastribune.ili2i87h', {
+  detectRetina: true,
+  attributionControl: false,
+}).setView([archivePostList[0].lat, archivePostList[0].lng], 9);
+
+map.scrollWheelZoom.disable();
+
+
+//set the styles of pings
+var pingStyles = {
+  radius: 6,
+  fillColor: "#fff",
+  color: "#008990",
+  weight: 1,
+  opacity: 1,
+  fillOpacity: .9
+};
+
+//set the styles of posts
+var postsIcon = L.icon({
+  iconUrl: '{% static 'images/postslight-30.png' %}',
+  iconRetinaUrl: '{% static 'images/postslight-60.png' %}',
+  iconSize: [30, 30],
+  iconAnchor: [16, 26]
+});
+
+//set the styles of big posts
+var postsIconBig = L.icon({
+  iconUrl: '{% static 'images/postsbig-40.png' %}',
+  iconRetinaUrl: '{% static 'images/postsbig-80.png' %}',
+  iconSize: [40, 40],
+  iconAnchor: [21, 34]
+});
+
+var allPosts = [];
+for (i = 0; i < archivePostList.length; i++) {
+    allPosts.push(L.marker([archivePostList[i].lat, archivePostList[i].lng], {
+        icon: postsIcon
+      }));
+};
+var postMarkers = L.featureGroup(allPosts);
+
+var allPings = [];
+for (i = 0; i < archivePingList.length; i++) {
+    allPings.push(L.circleMarker([archivePingList[i].lat, archivePingList[i].lng], pingStyles));
+};
+var pingMarkers = L.featureGroup(allPings);
+
+var overlayMaps = {
+    "Show All Posts": postMarkers,
+    "Show All Check Ins": pingMarkers
+};
+
+L.control.layers(null, overlayMaps, {collapsed: false}).addTo(map);
+
+//waypoint script
+
+$( document ).ready(function() {
+
+  //changes the mapbounds depending on whether the user has clicked "Show All Posts"
+  $('.leaflet-control-layers-selector').eq(0).on("click", function(){
+    if ($('.leaflet-control-layers-selector').eq(0).is(":checked")) {
+      map.fitBounds(postMarkers.getBounds(), {padding: [25,25]});
+    } else {
+      setMapBounds();
+      map.setZoom(9);
+    }
+  });
+
+  $('.map-container').waypoint('sticky');
+
+  //create empty array to store the current marker
+  var g = [];
+  //create empty array to store the big marker
+  var h = [];
+
+  var thisData;
+
+  //find out the height of the dates div so we can set waypoints based on them
+  divHeight = $('.archive-row').eq(0).outerHeight();
+
+  //set the waypoint
+  var wPoint = $('.map-container').outerHeight();
+
+  $(window).resize(function() {
+    divHeight = $('.archive-row').eq(0).outerHeight();
+    //update wPoint on resize
+    var wPoint = $('.map-container').outerHeight();
+  });
+
+  //set the map center, function called each time the map adds markers
+  function setMapBounds() {
+    if (map.hasLayer(postMarkers) === false) {
+      if (g.length > 0) {
+      map.panTo($(g).get(-1).getLatLng());
+      } else {map.panTo([archivePostList[0].lat, archivePostList[0].lng]);}
+    } else { map.fitBounds(postMarkers.getBounds(), {padding: [25,25]});}
+  };
+
+
+  var lazyUpdate = _.debounce(setMapBounds, 100);
+
+  $(window).on( "scroll", lazyUpdate );
+
+  $('.archive-row').waypoint(function(direction) {
+
+    console.log(wPoint);
+
+    if (direction === "down") {
+
+      $(this).find(".content-cell-header").css( "color", "#000" );
+
+      $(this).find(".archive-row-date").find("a").css( "color", "#fcc10f")
+
+      //get the current date
+      var thisDate = this.id;
+
+      thisData = archivePostList.filter(function (el) {
+        return el.date === thisDate;
+      });
+
+      var thisMarker = L.marker([thisData[0].lat, thisData[0].lng], {
+        icon: postsIcon
+      });
+
+      //filter by the date and add it to the map
+      var thisMarkerBig = L.marker([thisData[0].lat, thisData[0].lng], {
+        icon: postsIconBig,
+        zIndexOffset: 99999
+      });
+
+      //push the marker into the array
+      g.push(thisMarker);
+
+      // get the most recent marker and add it to the map
+      $(g).get(-1).addTo(map);
+
+      //remove all the big markers if any
+      for (i = 0; i < h.length; i++) {
+        map.removeLayer(h[i]);
+      };
+      //make sure the array is empty
+      h = [];
+      //add the Big Marker Data
+      h.push(thisMarkerBig);
+      //add it to the map
+      $(h).get(0).addTo(map);
+
+    } else {
+
+      $(this).find(".content-cell-header").css( "color", "#000" );
+      $(this).find("a").css('color', '#008990');
+
+      //get the last marker in the array
+      var lastMarker = $(g).get(-1);
+
+      //remove it from the map
+      map.removeLayer(lastMarker);
+
+      //remove it from the array
+      g.pop();
+
+    };
+
+  }, { offset: wPoint });
+
+  $('.archive-row').waypoint(function(direction) {
+    if (direction == "up") {
+
+    //get the current date
+      var thisDate = this.id;
+
+      thisData = archivePostList.filter(function (el) {
+        return el.date === thisDate;
+      });
+
+      //filter by the date and add it to the map
+      var thisMarkerBig = L.marker([thisData[0].lat, thisData[0].lng], {
+        icon: postsIconBig,
+        zIndexOffset: 99999
+      });
+
+      //remove all the big markers if any
+      for (i = 0; i < h.length; i++) {
+        map.removeLayer(h[i]);
+      };
+
+      //make sure the array is empty
+      h= [];
+      h.push(thisMarkerBig);
+      $(h).get(0).addTo(map);
+  }
+
+  }, { offset: wPoint - divHeight });
+
+
+
+}); //end of Document ready
 
 </script>
 
