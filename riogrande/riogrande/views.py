@@ -57,15 +57,16 @@ class ArchiveView(ListView):
         return [{
             'lat': p.location.y,
             'lng': p.location.x,
-            'date': p.pub_date.date.isoformat()
+            'date': p.pub_date.date.strftime('%b. %d, %Y')
         } for p in Ping.objects.all()]
 
     def get_all_posts(self):
         return [{
             'lat': p.location.y,
             'lng': p.location.x,
-            'date': p.pub_date.date.isoformat(),
-            'slug': str(p.slug)
+            'date': p.pub_date.date.strftime('%b. %d, %Y'),
+            'headline': str(p.headline),
+            'slug': p.pub_date.get_absolute_url()
         } for p in Post.objects.all()]
 
     def get_context_data(self, **kwargs):
