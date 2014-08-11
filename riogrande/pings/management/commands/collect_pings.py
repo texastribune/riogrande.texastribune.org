@@ -21,7 +21,7 @@ class Command(BaseCommand):
         response = urllib2.urlopen(FEED_API.format(findmespot_id))
         response = json.load(response)
 
-        messages = response['response']['feedMessageResponse']['messages']['message']
+        messages = list(response['response']['feedMessageResponse']['messages']['message'])
 
         for r in messages:
             pub_date = dateparse.parse_datetime(r['dateTime'])
