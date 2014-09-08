@@ -55,4 +55,9 @@ class Day(models.Model):
         except ObjectDoesNotExist:
             measurement_status = False
 
-        return any([post_status, gallery_status, measurement_status])
+        pings_status = self.pings.all().exists()
+
+        return any([post_status,
+                    gallery_status,
+                    measurement_status,
+                    pings_status])
