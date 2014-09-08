@@ -15,7 +15,17 @@ class LandingView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(LandingView, self).get_context_data(**kwargs)
 
-        context['most_recent_days'] = Day.objects.all()[:3]
+        last_ten_days = Day.objects.all()[:10]
+
+        most_recent_days = []
+
+        for day in last_ten_days:
+            if day.has_published_content is True:
+                most_recent_days.append(day)
+            if len(most_recent_days) == 3:
+                break
+
+        context['most_recent_days'] = most_recent_days
         context['most_recent_story'] = Story.published.latest('pub_date')
 
         return context
@@ -67,11 +77,11 @@ class ArchiveView(ListView):
             'date': p.pub_date.date.strftime('%b. %d, %Y'),
             'headline': str(p.headline),
             'slug': p.pub_date.get_absolute_url()
-        } for p in Post.objects.all()]
+        } for p in Post.objects.filter(pub_status='P')]
 
     def get_context_data(self, **kwargs):
-      context = super(ArchiveView, self).get_context_data(**kwargs)
-      context['archive_post_list'] = self.get_all_posts()
-      context['archive_ping_list'] = self.get_all_pings()
+        context = super(ArchiveView, self).get_context_data(**kwargs)
+        context['archive_post_list'] = self.get_all_posts()
+        context['archive_ping_list'] = self.get_all_pings()
 
-      return context
+        return context

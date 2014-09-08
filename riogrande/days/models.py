@@ -1,3 +1,4 @@
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
 from django.db import models
 
@@ -36,3 +37,22 @@ class Day(models.Model):
             'month': pub_date.strftime('%m'),
             'day': pub_date.strftime('%d'),
         })
+
+    @property
+    def has_published_content(self):
+        try:
+            post_status = self.post_for.pub_status == 'P'
+        except ObjectDoesNotExist:
+            post_status = False
+
+        try:
+            gallery_status = self.gallery_for.pub_status == 'P'
+        except ObjectDoesNotExist:
+            gallery_status = False
+
+        try:
+            measurement_status = self.measurement_for.pub_status == 'P'
+        except ObjectDoesNotExist:
+            measurement_status = False
+
+        return any([post_status, gallery_status, measurement_status])
