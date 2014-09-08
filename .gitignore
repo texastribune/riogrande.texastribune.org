@@ -24,3 +24,6 @@ riogrande/static/css/*.css*
 # Django things
 riogrande/media/
 riogrande/assets/
+
+# PostgreSQL DB things
+*.dump
