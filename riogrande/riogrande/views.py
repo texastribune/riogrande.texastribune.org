@@ -15,7 +15,17 @@ class LandingView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(LandingView, self).get_context_data(**kwargs)
 
-        context['most_recent_days'] = Day.objects.all()[:3]
+        last_ten_days = Day.objects.all()[:10]
+
+        most_recent_days = []
+
+        for day in last_ten_days:
+            if day.has_published_content is True:
+                most_recent_days.append(day)
+            if len(most_recent_days) == 3:
+                break
+
+        context['most_recent_days'] = most_recent_days
         context['most_recent_story'] = Story.published.latest('pub_date')
 
         return context
