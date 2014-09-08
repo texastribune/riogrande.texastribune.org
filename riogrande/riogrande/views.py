@@ -67,7 +67,7 @@ class ArchiveView(ListView):
             'date': p.pub_date.date.strftime('%b. %d, %Y'),
             'headline': str(p.headline),
             'slug': p.pub_date.get_absolute_url()
-        } for p in Post.objects.all()]
+        } for p in Post.objects.filter(pub_status='P')]
 
     def get_context_data(self, **kwargs):
       context = super(ArchiveView, self).get_context_data(**kwargs)
