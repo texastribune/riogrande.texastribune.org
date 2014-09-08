@@ -70,8 +70,8 @@ class ArchiveView(ListView):
         } for p in Post.objects.filter(pub_status='P')]
 
     def get_context_data(self, **kwargs):
-      context = super(ArchiveView, self).get_context_data(**kwargs)
-      context['archive_post_list'] = self.get_all_posts()
-      context['archive_ping_list'] = self.get_all_pings()
+        context = super(ArchiveView, self).get_context_data(**kwargs)
+        context['archive_post_list'] = self.get_all_posts()
+        context['archive_ping_list'] = self.get_all_pings()
 
-      return context
+        return context
