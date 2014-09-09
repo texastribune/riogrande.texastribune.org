@@ -54,7 +54,7 @@ hr.yellow {
 }
 
 .day-container {
-  margin-bottom: 4em;
+  margin-bottom: 2em;
 }
 
 .map-disclaimer {
@@ -820,5 +820,51 @@ table {
         width: 45%;
       }
     }
+  }
+}
+
+.progress-tabs {
+  margin-bottom: 2em;
+}
+
+.progress-tab {
+  border-bottom: 1px solid rgb(204, 204, 204);
+  border-top: 1px solid rgb(204, 204, 204);
+  color: rgb(119, 119, 119);
+  font-family: $helvetica;
+  font-size: .875em;
+  padding: 1em 0;
+  text-align: center;
+  width: 50%;
+
+  &:hover {
+    color: rgb(17, 17, 17);
+
+    &.disabled {
+      color: rgb(119, 119, 119);
+    }
+  }
+
+  &.disabled {
+    background-color: rgb(204, 204, 204);
+  }
+}
+
+.progress-previous {
+  border-right: 1px solid rgb(204, 204, 204);
+  display: block;
+  float: left;
+
+  i {
+    margin-right: em(2);
+  }
+}
+
+.progress-next {
+  display: block;
+  float: right;
+
+  i {
+    margin-left: em(2);
   }
 }
