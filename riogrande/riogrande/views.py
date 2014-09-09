@@ -34,6 +34,34 @@ class LandingView(TemplateView):
 class DayView(TemplateView):
     template_name = 'day.html'
 
+    def get_next_day(self, **kwargs):
+        try:
+            next_day = kwargs['day'].get_next_by_date()
+        except Day.DoesNotExist:
+            return None
+
+        while not next_day.has_published_content:
+            try:
+                next_day = next_day.get_next_by_date()
+            except Day.DoesNotExist:
+                return None
+
+        return next_day
+
+    def get_previous_day(self, **kwargs):
+        try:
+            previous_day = kwargs['day'].get_previous_by_date()
+        except Day.DoesNotExist:
+            return None
+
+        while not previous_day.has_published_content:
+            try:
+                previous_day = previous_day.get_previous_by_date()
+            except Day.DoesNotExist:
+                return None
+
+        return previous_day
+
     def get_context_data(self, **kwargs):
         context = super(DayView, self).get_context_data(**kwargs)
         date_format = '%Y__%m__%d'
@@ -43,6 +71,8 @@ class DayView(TemplateView):
             context['day']))
         date = datetime.datetime.strptime(date_string, date_format).date()
         context['day'] = get_object_or_404(Day, date__contains=date)
+        context['next_day'] = self.get_next_day(day=context['day'])
+        context['previous_day'] = self.get_previous_day(day=context['day'])
         context['most_recent_story'] = Story.published.latest('pub_date')
 
         return context
