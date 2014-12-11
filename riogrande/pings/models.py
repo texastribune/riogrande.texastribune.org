@@ -27,6 +27,9 @@ class Ping(models.Model):
     objects = models.GeoManager()
     published = PublishedObjectsGeoManager()
 
+    class Meta:
+        ordering = ('api_id', )
+
     def __unicode__(self):
         return '({0}, {1}) on {2}'.format(
             self.location.y,
