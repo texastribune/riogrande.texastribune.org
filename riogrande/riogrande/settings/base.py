@@ -106,10 +106,3 @@ STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 # Note: Only use for development and testing!
 
 SECRET_KEY = 'this_is_my_development_key'
-
-# South configuration
-
-INSTALLED_APPS += (
-    # Database migration helpers:
-    'south',
-)
