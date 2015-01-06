@@ -7,10 +7,10 @@ from .choices import PublicationStatus
 
 
 class PublishedObjectsManager(models.Manager):
-    def get_query_set(self):
+    def get_queryset(self):
         return (
             super(PublishedObjectsManager, self)
-            .get_query_set()
+            .get_queryset()
             .filter(
                 pub_status=PublicationStatus.Published,
                 # add 1 second of slop for safety
@@ -20,10 +20,10 @@ class PublishedObjectsManager(models.Manager):
 
 
 class PublishedObjectsStoryManager(models.Manager):
-    def get_query_set(self):
+    def get_queryset(self):
         return (
             super(PublishedObjectsStoryManager, self)
-            .get_query_set()
+            .get_queryset()
             .filter(
                 pub_status=PublicationStatus.Published,
                 # add 1 second of slop for safety
@@ -33,10 +33,10 @@ class PublishedObjectsStoryManager(models.Manager):
 
 
 class PublishedObjectsGeoManager(models.GeoManager):
-    def get_query_set(self):
+    def get_queryset(self):
         return (
             super(PublishedObjectsGeoManager, self)
-            .get_query_set()
+            .get_queryset()
             .filter(
                 pub_status=PublicationStatus.Published,
                 # add 1 second of slop for safety
@@ -46,10 +46,10 @@ class PublishedObjectsGeoManager(models.GeoManager):
 
 
 class PublishedObjectsPhotoManager(models.Manager):
-    def get_query_set(self):
+    def get_queryset(self):
         return (
             super(PublishedObjectsPhotoManager, self)
-            .get_query_set()
+            .get_queryset()
             .filter(
                 pub_status=PublicationStatus.Published,
                 # add 1 second of slop for safety
