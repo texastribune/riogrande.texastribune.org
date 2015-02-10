@@ -15,11 +15,11 @@ class LandingView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(LandingView, self).get_context_data(**kwargs)
 
-        last_ten_days = Day.objects.all()[:10]
+        days = Day.objects.filter(post_for__isnull=False).order_by('date')
 
         most_recent_days = []
 
-        for day in last_ten_days:
+        for day in days:
             if day.has_published_content is True:
                 most_recent_days.append(day)
             if len(most_recent_days) == 3:
