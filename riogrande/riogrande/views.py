@@ -90,7 +90,7 @@ class AboutView(TemplateView):
 
 
 class ArchiveView(ListView):
-    model = Day
+    queryset = Day.objects.order_by('date')
     template_name = 'archive.html'
 
     def get_all_pings(self):
